@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Florencia Bollini — UX/UI Designer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #F6F5F2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    ::selection { background: #8B1A1A; color: white; }
+
+    .btn-primary { transition: all 0.2s !important; }
+    .btn-primary:hover { opacity: 0.86 !important; transform: translateY(-1px) !important; }
+    .btn-outline:hover { border-color: #8B1A1A !important; color: #8B1A1A !important; }
+    .nav-btn:hover { color: #141414 !important; }
+    .contact-link:hover { border-color: #8B1A1A !important; background: rgba(139,26,26,0.04) !important; }
+    .case-card { transition: all 0.3s !important; }
+    .case-card:hover { box-shadow: 0 24px 64px rgba(0,0,0,0.09) !important; transform: translateY(-3px) !important; }
+    .tag-pill { transition: background 0.2s; }
+    .lang-btn { transition: all 0.2s !important; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .hero-photo { display: none !important; }
+      .about-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+      .case-card { grid-template-columns: 1fr !important; }
+      .case-visual { min-height: 200px !important; order: 0 !important; }
+      .case-content { order: 1 !important; padding: 2rem !important; }
+      .contact-grid { grid-template-columns: 1fr !important; }
+      .problem-grid { grid-template-columns: 1fr !important; }
+      .nav-links { gap: 1rem !important; }
+      .footer-inner { flex-direction: column !important; align-items: center !important; text-align: center; gap: 0.25rem !important; }
+    }
+
+    @media (max-width: 600px) {
+      .section-pad { padding: 4rem 1.25rem !important; }
+      .hero-text-wrap { padding: 2rem 1.25rem 3rem !important; }
+      .case-content { padding: 1.5rem !important; }
+      .contact-items { gap: 0.75rem !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // ─── TOKENS ───────────────────────────────────────
+    const C = {
+      accent:      "#8B1A1A",
+      accentLight: "rgba(139,26,26,0.08)",
+      bg:          "#F6F5F2",
+      card:        "#FFFFFF",
+      text:        "#141414",
+      muted:       "#767676",
+      border:      "#E8E5E1",
+      dark:        "#111111",
+      darkCard:    "rgba(255,255,255,0.04)",
+      darkBorder:  "rgba(255,255,255,0.1)",
+    };
+
+    const TOOLS = ["Figma", "Adobe Illustrator", "InDesign"];
+
+    // ─── TRANSLATIONS ─────────────────────────────────
+    const T = {
+      es: {
+        nav: { about: "Sobre mí", work: "Proyectos", contact: "Contacto" },
+        hero: {
+          greeting: "Hola, soy",
+          name: "Florencia Bollini",
+          title: "Diseñadora UX/UI",
+          sub: "Diseño productos digitales claros, funcionales y alineados a objetivos reales. No solo interfaces: sistemas que resuelven.",
+          cta: "Ver proyectos",
+          ctaContact: "Contactarme",
+        },
+        about: {
+          sec: "01",
+          title: "Sobre mí",
+          bio: [
+            "Soy diseñadora UX/UI enfocada en la creación de productos digitales claros, funcionales y alineados a objetivos reales. Abordo cada proyecto desde la comprensión profunda del problema, analizando comportamientos, detectando fricciones y transformando necesidades en soluciones estructuradas.",
+            "He desarrollado sitios web y apps desde cero y liderado procesos de rediseño, optimizando arquitectura, flujos de navegación y coherencia visual. Trabajo con una mirada estratégica: no diseño solo interfaces, diseño sistemas que resuelven.",
+            "Actualmente estudio Programación en la UTN de Mar del Plata, lo que fortalece mi criterio técnico y me permite diseñar considerando viabilidad, lógica y escalabilidad.",
+          ],
+          eduTitle: "Educación",
+          edu: [
+            { d: "Tecnicatura en Programación", s: "Universidad Técnica Nacional · Mar del Plata", y: "2021 – 2027" },
+            { d: "Diplomatura en Diseño UX/UI", s: "Universidad Tecnológica Nacional · Buenos Aires", y: "2025" },
+          ],
+          toolsTitle: "Herramientas",
+        },
+        work: {
+          sec: "02",
+          title: "Proyectos",
+          sub: "Casos de estudio que documentan mi proceso de diseño end-to-end.",
+          prob: "Problema",
+          obj:  "Objetivo",
+          proc: "Proceso",
+          cases: [
+            {
+              tag: "App Móvil · UX/UI",
+              ctx: "Diplomatura UX/UI · UTN",
+              title: "PetControl",
+              desc: "Aplicación móvil para la gestión y seguimiento integral de la salud y cuidado de mascotas, diseñada bajo principios de experiencia de usuario y claridad informativa.",
+              problem: "Los dueños de mascotas gestionan información clave de forma desorganizada, generando olvidos, seguimiento ineficiente y riesgo en la salud animal.",
+              objective: "Diseñar una app que optimice la organización del cuidado de mascotas, mejorando la prevención y el acceso a información crítica.",
+              methods: ["Desktop Research","Benchmarking","Entrevistas cualitativas","Proto Persona","User Persona","Mapa de empatía","POV","MVP","Mapa de sitio","Card Sorting","Task Flow","User Flow","Wireframes baja/alta fidelidad"],
+              platform: "Android", color: "#1A2535", emoji: "🐾",
+            },
+            {
+              tag: "Rediseño Web · UX/UI",
+              ctx: "Diplomatura UX/UI · UTN",
+              title: "SHEIN — Rediseño Web",
+              desc: "Rediseño de la experiencia de compra en la web de SHEIN, enfocado en reducir la sobrecarga cognitiva, mejorar la jerarquía visual y generar confianza en el usuario.",
+              problem: "La web presenta sobrecarga informativa, dark patterns y navegación poco intuitiva, generando experiencias de compra lentas con alta probabilidad de abandono.",
+              objective: "Optimizar la experiencia de compra mejorando la claridad, confianza y facilitando la búsqueda y selección de productos.",
+              methods: ["Desktop Research","Benchmarking competitivo (SHEIN vs AliExpress vs Temu)","Encuestas de usuario","Análisis de pain points","Rediseño de arquitectura de información","Prototipado en Figma"],
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️",
+            },
+          ],
+        },
+        contact: {
+          sec: "03",
+          title: "Contacto",
+          sub: "Me interesa participar en proyectos donde el diseño tenga impacto real y forme parte de decisiones de producto.",
+          cta: "Enviar mensaje",
+          items: [
+            { label: "Email",    value: "florencia.bollini@gmail.com",     href: "mailto:florencia.bollini@gmail.com" },
+            { label: "Teléfono", value: "+54 9 223 632 3721",              href: "tel:+5492236323721" },
+            { label: "LinkedIn", value: "linkedin.com/in/florencia-bollini", href: "https://www.linkedin.com/in/florencia-bollini/" },
+          ],
+        },
+        footer: { copy: "Florencia Bollini · 2025", tag: "Diseñado con intención." },
+      },
+      en: {
+        nav: { about: "About", work: "Work", contact: "Contact" },
+        hero: {
+          greeting: "Hi, I'm",
+          name: "Florencia Bollini",
+          title: "UX/UI Designer",
+          sub: "I design clear, functional digital products aligned with real objectives. Not just interfaces — systems that solve.",
+          cta: "View work",
+          ctaContact: "Get in touch",
+        },
+        about: {
+          sec: "01",
+          title: "About me",
+          bio: [
+            "I'm a UX/UI designer focused on creating clear, functional digital products aligned with real objectives. I approach each project from a deep understanding of the problem, analyzing behaviors, detecting friction points and transforming needs into structured solutions.",
+            "I've developed websites and apps from scratch and led redesign processes, optimizing architecture, navigation flows and visual consistency to improve the overall user experience. I work with a strategic mindset: I don't just design interfaces, I design systems that solve.",
+            "I'm currently studying Programming at UTN in Mar del Plata, which strengthens my technical judgment and allows me to design with feasibility, logic and scalability in mind.",
+          ],
+          eduTitle: "Education",
+          edu: [
+            { d: "Programming Technician Degree", s: "Universidad Técnica Nacional · Mar del Plata", y: "2021 – 2027" },
+            { d: "UX/UI Design Diploma",           s: "Universidad Tecnológica Nacional · Buenos Aires", y: "2025" },
+          ],
+          toolsTitle: "Tools",
+        },
+        work: {
+          sec: "02",
+          title: "Work",
+          sub: "Case studies documenting my end-to-end design process.",
+          prob: "Problem",
+          obj:  "Objective",
+          proc: "Process",
+          cases: [
+            {
+              tag: "Mobile App · UX/UI",
+              ctx: "UX/UI Diploma · UTN",
+              title: "PetControl",
+              desc: "Mobile application for comprehensive pet health management and care tracking, designed under user experience principles and informational clarity.",
+              problem: "Pet owners manage key information in a disorganized way, causing forgetting, inefficient tracking and health risks for their animals.",
+              objective: "Design an app that optimizes pet care organization, improving prevention and access to critical information for the user.",
+              methods: ["Desktop Research","Benchmarking","Qualitative interviews","Proto Persona","User Persona","Empathy Map","POV","MVP","Site Map","Card Sorting","Task Flow","User Flow","Lo & Hi-fi Wireframes"],
+              platform: "Android", color: "#1A2535", emoji: "🐾",
+            },
+            {
+              tag: "Web Redesign · UX/UI",
+              ctx: "UX/UI Diploma · UTN",
+              title: "SHEIN — Web Redesign",
+              desc: "Redesign of the shopping experience on SHEIN's website, focused on reducing cognitive overload, improving visual hierarchy and building user trust.",
+              problem: "The website presents information overload, dark patterns and non-intuitive navigation, creating a slow shopping experience with high abandonment probability.",
+              objective: "Optimize the shopping experience by improving clarity, trust and facilitating product search and selection.",
+              methods: ["Desktop Research","Competitive Benchmarking (SHEIN vs AliExpress vs Temu)","User surveys","Pain points analysis","Information architecture redesign","Figma prototyping"],
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️",
+            },
+          ],
+        },
+        contact: {
+          sec: "03",
+          title: "Contact",
+          sub: "I'm interested in projects where design has real impact and is part of product decisions.",
+          cta: "Send a message",
+          items: [
+            { label: "Email",    value: "florencia.bollini@gmail.com",     href: "mailto:florencia.bollini@gmail.com" },
+            { label: "Phone",    value: "+54 9 223 632 3721",              href: "tel:+5492236323721" },
+            { label: "LinkedIn", value: "linkedin.com/in/florencia-bollini", href: "https://www.linkedin.com/in/florencia-bollini/" },
+          ],
+        },
+        footer: { copy: "Florencia Bollini · 2025", tag: "Designed with intention." },
+      },
+    };
+
+    // ─── SVG ICONS ────────────────────────────────────
+    const IcoMail = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>;
+    const IcoPhone = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.93 3.36 2 2 0 0 1 3.9 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
+    const IcoLI = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>;
+    const IcoArrow = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>;
+    const IcoUser = () => <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="1.3"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>;
+    const CONTACT_ICONS = [<IcoMail/>, <IcoPhone/>, <IcoLI/>];
+
+    // ─── APP ──────────────────────────────────────────
+    function App() {
+      const [lang, setLang] = useState("es");
+      const [active, setActive] = useState("hero");
+      const t = T[lang];
+
+      useEffect(() => {
+        const ids = ["hero","about","work","contact"];
+        const obs = new IntersectionObserver(
+          entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+          { threshold: 0.3 }
+        );
+        ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+        return () => obs.disconnect();
+      }, []);
+
+      const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+      const nl = id => ({
+        cursor: "pointer", background: "none", border: "none",
+        borderBottom: `1.5px solid ${active === id ? C.accent : "transparent"}`,
+        paddingBottom: "3px",
+        color: active === id ? C.text : C.muted,
+        fontWeight: active === id ? "600" : "400",
+        fontSize: "0.875rem", letterSpacing: "0.02em",
+        fontFamily: "inherit",
+      });
+
+      return (
+        <div style={{ color: C.text, background: C.bg }}>
+
+          {/* ── NAVBAR ── */}
+          <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:999, background:"rgba(246,245,242,0.92)", backdropFilter:"blur(18px)", WebkitBackdropFilter:"blur(18px)", borderBottom:`1px solid ${C.border}` }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"0 2rem", height:"64px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+              <button onClick={() => scrollTo("hero")} style={{ background:"none", border:"none", cursor:"pointer", fontSize:"0.88rem", fontWeight:"800", letterSpacing:"0.07em", color:C.text, fontFamily:"inherit" }}>
+                FLORENCIA <span style={{ color:C.accent }}>BOLLINI</span>
+              </button>
+              <div className="nav-links" style={{ display:"flex", alignItems:"center", gap:"2rem" }}>
+                {[["about",t.nav.about],["work",t.nav.work],["contact",t.nav.contact]].map(([id,label]) => (
+                  <button key={id} className="nav-btn" onClick={() => scrollTo(id)} style={nl(id)}>{label}</button>
+                ))}
+                <div style={{ display:"flex", border:`1px solid ${C.border}`, borderRadius:"8px", overflow:"hidden", fontSize:"0.76rem", fontWeight:"700" }}>
+                  {["es","en"].map(l => (
+                    <button key={l} className="lang-btn" onClick={() => setLang(l)} style={{ padding:"5px 13px", border:"none", cursor:"pointer", background: lang===l ? C.accent : "transparent", color: lang===l ? "white" : C.muted, fontFamily:"inherit", fontWeight:"700", letterSpacing:"0.06em" }}>
+                      {l.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          {/* ── HERO ── */}
+          <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", paddingTop:"64px" }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 2rem", width:"100%" }}>
+              <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"1fr 400px", gap:"5rem", alignItems:"center", minHeight:"calc(100vh - 160px)" }}>
+
+                {/* Text */}
+                <div className="hero-text-wrap" style={{ maxWidth:"580px" }}>
+                  <p style={{ color:C.accent, fontSize:"0.75rem", fontWeight:"700", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"1.75rem" }}>
+                    {t.hero.greeting}
+                  </p>
+                  <h1 style={{ fontSize:"clamp(2.8rem,6vw,4.5rem)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.03em", marginBottom:"0.6rem" }}>
+                    {t.hero.name}
+                  </h1>
+                  <h2 style={{ fontSize:"clamp(1.2rem,2.5vw,1.9rem)", fontWeight:"300", color:C.muted, letterSpacing:"-0.01em", marginBottom:"2rem" }}>
+                    {t.hero.title}
+                  </h2>
+                  <div style={{ width:"44px", height:"3px", background:C.accent, borderRadius:"2px", marginBottom:"2rem" }} />
+                  <p style={{ fontSize:"1.08rem", lineHeight:"1.9", color:C.muted, marginBottom:"3rem" }}>
+                    {t.hero.sub}
+                  </p>
+                  <div style={{ display:"flex", gap:"1rem", flexWrap:"wrap" }}>
+                    <button className="btn-primary" onClick={() => scrollTo("work")} style={{ background:C.accent, color:"white", padding:"13px 30px", borderRadius:"10px", border:"none", cursor:"pointer", fontSize:"0.93rem", fontWeight:"600", letterSpacing:"0.01em", fontFamily:"inherit" }}>
+                      {t.hero.cta}
+                    </button>
+                    <button className="btn-outline" onClick={() => scrollTo("contact")} style={{ background:"transparent", color:C.text, padding:"13px 30px", borderRadius:"10px", border:`1.5px solid ${C.border}`, cursor:"pointer", fontSize:"0.93rem", fontWeight:"500", fontFamily:"inherit" }}>
+                      {t.hero.ctaContact}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Photo */}
+                <div className="hero-photo" style={{ display:"flex", justifyContent:"center" }}>
+                  <div style={{ position:"relative", width:"100%" }}>
+                    <div style={{ position:"absolute", top:"22px", right:"-14px", bottom:"-14px", left:"14px", border:`2px solid ${C.accent}`, borderRadius:"24px", opacity:0.22, zIndex:0 }} />
+                    <div style={{ position:"relative", zIndex:1, background:"linear-gradient(150deg,#EBE7E1 0%,#D9D2C8 100%)", borderRadius:"20px", overflow:"hidden", aspectRatio:"3/4", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-end", padding:"1.75rem" }}>
+                      <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                        <IcoUser />
+                      </div>
+                      <div style={{ position:"relative", zIndex:2, background:"rgba(255,255,255,0.88)", backdropFilter:"blur(10px)", borderRadius:"12px", padding:"0.85rem 1.2rem", width:"100%", border:"1px solid rgba(255,255,255,0.7)" }}>
+                        <p style={{ fontWeight:"700", fontSize:"0.88rem" }}>Florencia Bollini</p>
+                        <p style={{ color:C.accent, fontSize:"0.74rem", fontWeight:"500", marginTop:"2px" }}>UX/UI Designer · Mar del Plata, AR</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── ABOUT ── */}
+          <section id="about" className="section-pad" style={{ background:C.card, padding:"7rem 2rem" }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto" }}>
+              <SecHeader sec={t.about.sec} title={t.about.title} />
+              <div className="about-grid" style={{ display:"grid", gridTemplateColumns:"1.3fr 0.7fr", gap:"6rem", marginTop:"3.5rem" }}>
+
+                {/* Bio */}
+                <div>
+                  {t.about.bio.map((p,i) => (
+                    <p key={i} style={{ fontSize:"1.05rem", lineHeight:"1.95", color: i===0 ? C.text : C.muted, marginBottom: i < t.about.bio.length-1 ? "1.5rem" : 0 }}>{p}</p>
+                  ))}
+                </div>
+
+                {/* Sidebar */}
+                <div>
+                  <SideBlock title={t.about.eduTitle}>
+                    {t.about.edu.map((e,i) => (
+                      <div key={i} style={{ marginBottom: i < t.about.edu.length-1 ? "1.5rem" : 0 }}>
+                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:"0.75rem", marginBottom:"3px" }}>
+                          <span style={{ fontWeight:"600", fontSize:"0.88rem", lineHeight:"1.4" }}>{e.d}</span>
+                          <span style={{ fontSize:"0.74rem", color:C.accent, fontWeight:"700", whiteSpace:"nowrap" }}>{e.y}</span>
+                        </div>
+                        <p style={{ fontSize:"0.8rem", color:C.muted }}>{e.s}</p>
+                      </div>
+                    ))}
+                  </SideBlock>
+                  <SideBlock title={t.about.toolsTitle} mt="2.5rem">
+                    <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem" }}>
+                      {TOOLS.map(tool => (
+                        <span key={tool} style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"6px 14px", fontSize:"0.82rem", fontWeight:"500" }}>{tool}</span>
+                      ))}
+                    </div>
+                  </SideBlock>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── WORK ── */}
+          <section id="work" className="section-pad" style={{ background:C.bg, padding:"7rem 2rem" }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto" }}>
+              <SecHeader sec={t.work.sec} title={t.work.title} sub={t.work.sub} />
+              <div style={{ display:"flex", flexDirection:"column", gap:"2.5rem", marginTop:"3.5rem" }}>
+                {t.work.cases.map((cs,i) => (
+                  <CaseCard key={i} cs={cs} idx={i} t={t} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── CONTACT ── */}
+          <section id="contact" className="section-pad" style={{ background:C.dark, padding:"7rem 2rem", color:"white" }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto" }}>
+              <SecHeader sec={t.contact.sec} title={t.contact.title} dark />
+              <div className="contact-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"5rem", alignItems:"center", marginTop:"3.5rem" }}>
+                <div>
+                  <p style={{ fontSize:"1.05rem", lineHeight:"1.9", color:"rgba(255,255,255,0.5)", marginBottom:"2.5rem" }}>{t.contact.sub}</p>
+                  <a href="mailto:florencia.bollini@gmail.com" className="btn-primary" style={{ display:"inline-flex", alignItems:"center", gap:"0.6rem", background:C.accent, color:"white", padding:"13px 28px", borderRadius:"10px", fontSize:"0.93rem", fontWeight:"600", textDecoration:"none", letterSpacing:"0.01em" }}>
+                    {t.contact.cta} <IcoArrow />
+                  </a>
+                </div>
+                <div className="contact-items" style={{ display:"flex", flexDirection:"column", gap:"1rem" }}>
+                  {t.contact.items.map((item,i) => (
+                    <a key={i} href={item.href} target={i===2?"_blank":undefined} rel="noreferrer" className="contact-link" style={{ display:"flex", alignItems:"center", gap:"1.25rem", padding:"1.25rem 1.5rem", borderRadius:"14px", border:`1px solid ${C.darkBorder}`, color:"white", textDecoration:"none", background:C.darkCard }}>
+                      <span style={{ color:C.accent, flexShrink:0 }}>{CONTACT_ICONS[i]}</span>
+                      <div>
+                        <p style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.32)", marginBottom:"0.2rem", fontWeight:"700", letterSpacing:"0.12em", textTransform:"uppercase" }}>{item.label}</p>
+                        <p style={{ fontSize:"0.9rem", fontWeight:"500" }}>{item.value}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── FOOTER ── */}
+          <footer style={{ background:"#080808", padding:"1.75rem 2rem" }}>
+            <div className="footer-inner" style={{ maxWidth:"1120px", margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"0.5rem" }}>
+              <p style={{ color:"rgba(255,255,255,0.2)", fontSize:"0.77rem" }}>{t.footer.copy}</p>
+              <p style={{ color:"rgba(255,255,255,0.2)", fontSize:"0.77rem" }}>{t.footer.tag}</p>
+            </div>
+          </footer>
+
+        </div>
+      );
+    }
+
+    // ─── SUB-COMPONENTS ───────────────────────────────
+    function SecHeader({ sec, title, sub, dark }) {
+      return (
+        <div>
+          <p style={{ color:C.accent, fontSize:"0.72rem", fontWeight:"700", letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"0.6rem" }}>{sec}</p>
+          <h2 style={{ fontSize:"clamp(2rem,3.5vw,3rem)", fontWeight:"700", letterSpacing:"-0.025em", color: dark ? "white" : C.text, marginBottom: sub ? "0.75rem" : 0 }}>{title}</h2>
+          {sub && <p style={{ fontSize:"1rem", color: dark ? "rgba(255,255,255,0.42)" : C.muted }}>{sub}</p>}
+        </div>
+      );
+    }
+
+    function SideBlock({ title, children, mt }) {
+      return (
+        <div style={{ marginTop: mt || 0 }}>
+          <p style={{ fontSize:"0.7rem", fontWeight:"700", letterSpacing:"0.16em", textTransform:"uppercase", color:C.muted, marginBottom:"1.25rem" }}>{title}</p>
+          {children}
+        </div>
+      );
+    }
+
+    function CaseCard({ cs, idx, t }) {
+      const reverse = idx % 2 !== 0;
+      return (
+        <div className="case-card" style={{ background:C.card, borderRadius:"24px", overflow:"hidden", border:`1px solid ${C.border}`, display:"grid", gridTemplateColumns: reverse ? "1fr 420px" : "420px 1fr" }}>
+
+          {/* Visual */}
+          <div className="case-visual" style={{ background:cs.color, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"3rem 2rem", minHeight:"420px", order: reverse ? 1 : 0, position:"relative", overflow:"hidden" }}>
+            <div style={{ position:"absolute", top:"-40px", right:"-40px", width:"220px", height:"220px", borderRadius:"50%", border:"2px solid rgba(255,255,255,0.06)" }} />
+            <div style={{ position:"absolute", bottom:"-60px", left:"-30px", width:"270px", height:"270px", borderRadius:"50%", border:"2px solid rgba(255,255,255,0.04)" }} />
+            <div style={{ position:"relative", zIndex:1, textAlign:"center" }}>
+              <div style={{ fontSize:"3.5rem", marginBottom:"1.5rem", filter:"drop-shadow(0 8px 24px rgba(0,0,0,0.3))" }}>{cs.emoji}</div>
+              <h3 style={{ color:"white", fontSize:"1.7rem", fontWeight:"800", letterSpacing:"-0.02em", marginBottom:"0.5rem" }}>{cs.title}</h3>
+              <p style={{ color:"rgba(255,255,255,0.4)", fontSize:"0.8rem", fontWeight:"500", letterSpacing:"0.08em" }}>{cs.platform}</p>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="case-content" style={{ padding:"3rem", display:"flex", flexDirection:"column", justifyContent:"center", order: reverse ? 0 : 1 }}>
+            <div style={{ display:"flex", alignItems:"center", flexWrap:"wrap", gap:"0.6rem", marginBottom:"1.25rem" }}>
+              <span style={{ background:C.accentLight, color:C.accent, fontSize:"0.7rem", fontWeight:"700", padding:"4px 12px", borderRadius:"20px", letterSpacing:"0.06em" }}>{cs.tag}</span>
+              <span style={{ color:C.muted, fontSize:"0.77rem" }}>{cs.ctx}</span>
+            </div>
+            <h3 style={{ fontSize:"1.7rem", fontWeight:"700", letterSpacing:"-0.02em", marginBottom:"1rem" }}>{cs.title}</h3>
+            <p style={{ color:C.muted, lineHeight:"1.8", fontSize:"0.94rem", marginBottom:"1.75rem" }}>{cs.desc}</p>
+
+            <div className="problem-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.75rem", marginBottom:"1.75rem" }}>
+              {[[t.work.prob, cs.problem],[t.work.obj, cs.objective]].map(([label,text]) => (
+                <div key={label} style={{ background:C.bg, borderRadius:"12px", padding:"1rem 1.1rem", border:`1px solid ${C.border}` }}>
+                  <p style={{ fontSize:"0.65rem", fontWeight:"700", color:C.accent, textTransform:"uppercase", letterSpacing:"0.13em", marginBottom:"0.45rem" }}>{label}</p>
+                  <p style={{ fontSize:"0.79rem", color:C.muted, lineHeight:"1.65" }}>{text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div>
+              <p style={{ fontSize:"0.65rem", fontWeight:"700", color:C.text, textTransform:"uppercase", letterSpacing:"0.13em", marginBottom:"0.75rem" }}>{t.work.proc}</p>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:"0.35rem" }}>
+                {cs.methods.map(m => (
+                  <span key={m} style={{ fontSize:"0.72rem", padding:"3px 10px", borderRadius:"6px", border:`1px solid ${C.border}`, color:C.muted, background:"white" }}>{m}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ─── RENDER ───────────────────────────────────────
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
