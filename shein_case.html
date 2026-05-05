@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SHEIN — Rediseño Web · Caso de Estudio · Florencia Bollini</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#F6F5F2;font-family:'Inter',-apple-system,sans-serif;color:#141414;line-height:1.7}
+::selection{background:#8B1A1A;color:white}
+
+.cs-nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(246,245,242,0.93);backdrop-filter:blur(18px);border-bottom:1px solid #E8E5E1;height:60px;display:flex;align-items:center;padding:0 2rem}
+.cs-nav-inner{max-width:1080px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
+.back-btn{display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:#767676;font-size:0.8rem;font-weight:500;letter-spacing:0.03em;transition:color 0.2s}
+.back-btn:hover{color:#141414}
+.nav-project{font-size:0.8rem;font-weight:700;letter-spacing:0.06em;color:#141414}
+.nav-tag{font-size:0.72rem;color:#8B1A1A;font-weight:600;letter-spacing:0.08em;background:rgba(139,26,26,0.08);padding:3px 10px;border-radius:20px}
+
+/* HERO */
+.hero{background:#1A0F2E;color:white;padding:120px 2rem 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);pointer-events:none}
+.hero-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8B1A1A;margin-bottom:1.25rem}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:800;letter-spacing:-0.03em;line-height:1.02;margin-bottom:0.5rem}
+.hero-subtitle{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:300;color:rgba(255,255,255,0.45);letter-spacing:-0.01em;margin-bottom:1.5rem}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,0.5);max-width:620px;line-height:1.8;margin-bottom:2.5rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:0.75rem}
+.meta-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;font-size:0.75rem;font-weight:500;color:rgba(255,255,255,0.6)}
+.meta-pill span{color:rgba(255,255,255,0.3);margin-right:0.35rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em}
+
+/* OPENING QUESTION */
+.opening{background:#2D1F3D;color:white;padding:4rem 2rem;text-align:center}
+.opening-inner{max-width:780px;margin:0 auto}
+.opening-q{font-size:clamp(1.3rem,3vw,2rem);font-weight:300;line-height:1.6;color:rgba(255,255,255,0.9);font-style:italic;margin-bottom:1.25rem}
+.opening-sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.7}
+
+/* OVERVIEW */
+.overview{background:white;border-bottom:1px solid #E8E5E1;padding:2.5rem 2rem}
+.overview-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.ov-item label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#8B1A1A;display:block;margin-bottom:0.4rem;opacity:0.75}
+.ov-item p{font-size:0.95rem;font-weight:600;color:#141414;letter-spacing:-0.01em}
+
+.section{padding:5rem 2rem}
+.section-inner{max-width:1080px;margin:0 auto}
+.section-alt{background:#FAFAF8}
+.section-dark{background:#111110;color:white}
+
+.step-header{display:flex;flex-direction:column;gap:0.55rem;margin-bottom:3rem}
+.step-num{font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#8B1A1A;display:inline-flex;align-items:center;gap:0.5rem;width:fit-content}
+.step-num::before{content:'';display:inline-block;width:20px;height:1.5px;background:#8B1A1A;flex-shrink:0}
+.step-title{font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-0.03em;line-height:1.08}
+
+.body-text{font-size:1rem;line-height:1.9;color:#5C5A57;max-width:680px}
+p+p{margin-top:1rem}
+
+.highlight{border-left:2px solid #8B1A1A;padding:0.9rem 1.4rem;margin:1.75rem 0;background:transparent}
+.highlight p{font-size:0.94rem;line-height:1.85;color:#3D3B38;font-style:italic}
+
+.quote-block{padding:2.5rem 0;border-top:1px solid #E8E5E1;border-bottom:1px solid #E8E5E1;margin:3rem 0}
+.quote-text{font-size:clamp(1.15rem,2vw,1.35rem);font-weight:300;line-height:1.75;color:#141414;font-style:italic;margin-bottom:0.85rem;letter-spacing:-0.01em}
+.quote-attr{font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B1A1A}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.main-side{display:grid;grid-template-columns:1.5fr 1fr;gap:4rem;align-items:start}
+
+.info-card{background:white;border-radius:14px;padding:1.5rem 1.75rem;border:1px solid #ECEAE6;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.55rem}
+.card-title{font-size:1rem;font-weight:700;margin-bottom:0.5rem;color:#141414}
+.card-text{font-size:0.875rem;line-height:1.78;color:#7A7873}
+
+.method-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
+.method-tag{font-size:0.72rem;font-weight:600;letter-spacing:0.04em;color:#141414;background:white;border:1px solid #E8E5E1;border-radius:6px;padding:4px 12px}
+
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:1.5rem;background:#ECEAE6;border-radius:14px;overflow:hidden}
+.pain-item{display:flex;align-items:flex-start;gap:0.85rem;padding:1.25rem 1.4rem;background:#FAFAF8}
+.pain-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;margin-top:1px;border-radius:50%}
+.pain-num{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:800;letter-spacing:0.04em;color:#8B1A1A;background:rgba(139,26,26,0.07);border-radius:50%;margin-top:1px}
+.brand-tag{font-size:0.62rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.pain-text{font-size:0.85rem;line-height:1.7;color:#5C5A57}
+
+.persona-card{background:white;border-radius:16px;padding:2rem 2.25rem;border:1px solid #ECEAE6;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+.persona-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:#8B1A1A}
+.persona-name{font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.25rem}
+.persona-role{font-size:0.85rem;color:#767676;margin-bottom:1.5rem}
+.persona-quote{font-size:0.9rem;font-style:italic;color:#767676;line-height:1.7;margin-bottom:1.5rem;padding:0.75rem 1rem;background:#F6F5F2;border-radius:8px;border-left:2px solid #8B1A1A}
+.persona-section-title{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.6rem;margin-top:1.25rem}
+.persona-list{list-style:none;display:flex;flex-direction:column;gap:0.35rem}
+.persona-list li{font-size:0.85rem;color:#767676;padding-left:1rem;position:relative}
+.persona-list li::before{content:'·';position:absolute;left:0;color:#8B1A1A;font-weight:700}
+
+.divider{height:1px;background:#E8E5E1;margin:0}
+
+/* BENCHMARK TABLE */
+.bench-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:0.84rem}
+.bench-table th{text-align:left;padding:0.65rem 1rem;background:#F0EDEA;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#767676;border-bottom:1px solid #E8E5E1}
+.bench-table td{padding:0.75rem 1rem;border-bottom:1px solid #F0EDEA;vertical-align:top}
+.bench-table tr:last-child td{border-bottom:none}
+.bench-table .brand{font-weight:700;color:#141414}
+.bench-table .score{font-weight:600}
+.score-hi{color:#16a34a}
+.score-mid{color:#d97706}
+.score-low{color:#dc2626}
+
+/* PAIN POINT TAGS */
+.pain-tags{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem}
+.pain-tag{font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid rgba(139,26,26,0.2);background:rgba(139,26,26,0.05);color:#8B1A1A}
+
+/* NEEDS MATRIX */
+.needs-table{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.need-row{display:flex;gap:0.75rem;padding:1rem;background:white;border-radius:12px;border:1px solid #E8E5E1;align-items:flex-start}
+.need-icon{width:28px;height:28px;border-radius:6px;background:rgba(139,26,26,0.08);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.78rem}
+.need-text{font-size:0.82rem;color:#767676;line-height:1.6}
+.need-solution{background:rgba(139,26,26,0.04);border:1px solid rgba(139,26,26,0.12);border-radius:12px;padding:1rem}
+.need-solution .card-label{margin-bottom:0.5rem}
+.need-solution p{font-size:0.84rem;color:#141414;line-height:1.65}
+
+/* TESTING */
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.ab-card{border-radius:16px;padding:1.5rem;border:1px solid #E8E5E1}
+.ab-card.original{background:#F6F5F2}
+.ab-card.redesign{background:white;border-color:rgba(139,26,26,0.2)}
+.ab-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1rem}
+.ab-label.orig{color:#767676}
+.ab-label.new{color:#8B1A1A}
+.ab-metric{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid #F0EDEA;font-size:0.82rem}
+.ab-metric:last-child{border-bottom:none}
+.ab-metric span{color:#767676}
+.ab-metric strong{font-weight:700;color:#141414}
+.ab-metric strong.better{color:#16a34a}
+
+/* FLOW STEPS */
+.flow-steps{display:flex;align-items:center;gap:0.5rem;margin-top:1.5rem;flex-wrap:wrap;row-gap:0.75rem}
+.flow-step{background:white;border:1px solid #E8E5E1;border-radius:10px;padding:0.75rem 1.25rem;font-size:0.8rem;font-weight:600;color:#141414;white-space:nowrap}
+.flow-arrow{color:#8B1A1A;font-size:1rem;padding:0 0.15rem;font-weight:300;flex-shrink:0}
+.flow-step.highlight-step{background:#8B1A1A;color:white;border-color:#8B1A1A}
+.flow-step.warn-step{background:#FEF3C7;border-color:#F59E0B;color:#92400E}
+
+/* WIREFRAME STAGES */
+.wireframe-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1.5rem}
+.wireframe-stage{border-radius:16px;overflow:hidden;border:1px solid #E8E5E1}
+.stage-header{padding:1rem 1.25rem;border-bottom:1px solid #E8E5E1}
+.stage-num{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.2rem}
+.stage-name{font-size:0.88rem;font-weight:700;color:#141414}
+.stage-body{padding:1rem 1.25rem;background:white}
+.stage-body p{font-size:0.8rem;color:#767676;line-height:1.65}
+
+/* DESIGN SYSTEM PREVIEW */
+.ds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1.5rem}
+.ds-card{background:white;border-radius:16px;padding:1.5rem;border:1px solid #E8E5E1}
+.ds-label{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B1A1A;margin-bottom:1rem}
+
+.color-swatch{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem}
+.swatch-box{width:36px;height:36px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);flex-shrink:0}
+.swatch-info label{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#767676;display:block}
+.swatch-info p{font-size:0.8rem;font-weight:600;color:#141414}
+
+/* TREE TEST */
+.tree-result{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.tree-item{padding:1rem;border-radius:12px;border:1px solid #E8E5E1;background:white}
+.tree-screen{font-size:0.8rem;font-weight:600;color:#141414;margin-bottom:0.4rem}
+.tree-bar-wrap{display:flex;align-items:center;gap:0.75rem}
+.tree-bar{height:8px;border-radius:4px;flex:1;background:#F0EDEA}
+.tree-bar-fill{height:100%;border-radius:4px}
+.tree-pct{font-size:0.72rem;font-weight:700}
+
+.cs-footer{background:#080808;padding:2rem;text-align:center}
+.cs-footer p{color:rgba(255,255,255,0.2);font-size:0.78rem}
+.cs-footer a{color:#8B1A1A;text-decoration:none}
+
+@media(max-width:768px){
+  .overview-inner{grid-template-columns:1fr 1fr}
+  .two-col,.main-side{grid-template-columns:1fr}
+  .three-col,.ds-grid,.wireframe-stages{grid-template-columns:1fr 1fr}
+  .pain-grid,.needs-table,.ab-grid,.tree-result{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero{padding:100px 1.25rem 60px}
+  .section{padding:3.5rem 1.25rem}
+  .overview{padding:2rem 1.25rem}
+  .overview-inner{grid-template-columns:1fr 1fr;gap:1.25rem}
+  .three-col,.ds-grid,.wireframe-stages{grid-template-columns:1fr}
+  .opening{padding:2.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="cs-nav">
+  <div class="cs-nav-inner">
+    <a href="portfolio.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Florencia Bollini
+    </a>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <span class="nav-project">SHEIN Rediseño</span>
+      <span class="nav-tag">Rediseño Web · UX/UI</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Caso de Estudio 02</p>
+    <h1 class="hero-title">SHEIN</h1>
+    <p class="hero-subtitle">Rediseño de Experiencia de Compra</p>
+    <p class="hero-sub">Rediseño de la interfaz web de SHEIN enfocado en reducir la sobrecarga cognitiva, eliminar dark patterns y construir confianza en el usuario durante el proceso de compra.</p>
+    <div class="hero-meta">
+      <div class="meta-pill"><span>Plataforma</span>Desktop Web</div>
+      <div class="meta-pill"><span>Herramienta</span>Figma</div>
+      <div class="meta-pill"><span>Contexto</span>Diplomatura UX/UI · UTN</div>
+      <div class="meta-pill"><span>Rol</span>UX/UI Designer</div>
+      <div class="meta-pill"><span>Año</span>2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- OPENING QUESTION -->
+<div class="opening">
+  <div class="opening-inner">
+    <p class="opening-q">¿Alguna vez entraste a una tienda online y sentiste que había demasiado para elegir?</p>
+    <p class="opening-sub">Miles de productos, estímulos por todos lados y al final no sabés si confiar en lo que estás comprando. Esa fue la pregunta que guió todo el proceso.</p>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="overview">
+  <div class="overview-inner">
+    <div class="ov-item">
+      <label>Problema central</label>
+      <p>Sobrecarga cognitiva + dark patterns</p>
+    </div>
+    <div class="ov-item">
+      <label>Enfoque</label>
+      <p>Claridad, jerarquía y confianza</p>
+    </div>
+    <div class="ov-item">
+      <label>Validación</label>
+      <p>A/B Testing + Tree Testing</p>
+    </div>
+    <div class="ov-item">
+      <label>Resultado</label>
+      <p>Prototipo hi-fi + Design System completo</p>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- 01 CONTEXTO -->
+<section class="section">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">01 — Contexto</span>
+      <h2 class="step-title">El mercado y la oportunidad</h2>
+    </div>
+    <div class="main-side">
+      <div>
+        <p class="body-text">SHEIN es uno de los líderes mundiales del fast fashion online, con un catálogo masivo y actualizaciones diarias de productos. Compite en un mercado de alta exigencia donde la experiencia de compra, la velocidad y la confianza son factores determinantes de conversión.</p>
+        <p class="body-text" style="margin-top:1rem">Sin embargo, la plataforma actual sacrifica claridad por volumen. El resultado es una interfaz que satura al usuario, dificulta la toma de decisiones y genera desconfianza sobre la calidad real de los productos.</p>
+        <div class="highlight">
+          <p>Una optimización de la web puede impactar directamente en la <strong>conversión y la fidelización de clientes</strong> en un mercado altamente competitivo donde la experiencia diferencia.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div class="info-card">
+          <p class="card-label">Sector</p>
+          <p class="card-title">Fast Fashion Online</p>
+          <p class="card-text">Alta competencia, usuarios con alta comparación de precios y baja tolerancia a la fricción.</p>
+        </div>
+        <div class="info-card">
+          <p class="card-label">Competidores directos</p>
+          <p class="card-title">AliExpress · Temu</p>
+          <p class="card-text">Modelos distintos de UX: Temu gamificado, AliExpress con foco en confianza.</p>
+        </div>
+        <div class="info-card">
+          <p class="card-label">Decisión de diseño</p>
+          <p class="card-title">No imitar. Diferenciar.</p>
+          <p class="card-text">El rediseño busca una propuesta propia: claridad y confianza como ventaja competitiva.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 02 INVESTIGACIÓN -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">02 — Investigación</span>
+      <h2 class="step-title">Desktop research & benchmarking</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <p class="body-text">Se realizó un análisis competitivo profundo comparando SHEIN con AliExpress y Temu en cinco dimensiones clave: interfaz, jerarquía visual, usabilidad, funcionalidades y confianza.</p>
+        <div class="method-tags">
+          <span class="method-tag">Desktop Research</span>
+          <span class="method-tag">Benchmarking competitivo</span>
+          <span class="method-tag">Análisis de reseñas</span>
+          <span class="method-tag">Encuestas a usuarios</span>
+        </div>
+        <div style="margin-top:2rem">
+          <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.75rem">Hallazgos cualitativos</p>
+          <div style="display:flex;flex-direction:column;gap:0.6rem">
+            <div class="info-card" style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="brand-tag" style="color:#1d4ed8;background:rgba(59,130,246,0.08)">SHN</div>
+              <div><p style="font-size:0.78rem;font-weight:600;color:#141414;margin-bottom:0.2rem">SHEIN</p><p class="card-text">Amplia variedad y precios bajos, pero saturación visual y calidad impredecible.</p></div>
+            </div>
+            <div class="info-card" style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="brand-tag" style="color:#92400E;background:rgba(234,179,8,0.08)">ALI</div>
+              <div><p style="font-size:0.78rem;font-weight:600;color:#141414;margin-bottom:0.2rem">AliExpress</p><p class="card-text">Catálogo inmenso con protección al comprador. Mejor percepción de confianza.</p></div>
+            </div>
+            <div class="info-card" style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="brand-tag" style="color:#166534;background:rgba(34,197,94,0.08)">TEM</div>
+              <div><p style="font-size:0.78rem;font-weight:600;color:#141414;margin-bottom:0.2rem">Temu</p><p class="card-text">Agresivo en precio, experiencia gamificada. Percepción baja de calidad.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:1rem">Comparativa por dimensión</p>
+        <div class="info-card" style="background:#F6F5F2">
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.78rem">
+                <span style="font-weight:600">Interfaz</span>
+                <span style="display:flex;gap:0.75rem;font-size:0.72rem">
+                  <span style="color:#dc2626;font-weight:600">SHEIN</span>
+                  <span style="color:#16a34a;font-weight:600">AliExpress</span>
+                </span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">SHEIN</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:45%;background:#dc2626;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">AliExpress</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:75%;background:#16a34a;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">Temu</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:60%;background:#d97706;border-radius:3px"></div></div></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.78rem"><span style="font-weight:600">Confianza</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">SHEIN</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:30%;background:#dc2626;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">AliExpress</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:80%;background:#16a34a;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">Temu</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:40%;background:#d97706;border-radius:3px"></div></div></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.78rem"><span style="font-weight:600">Usabilidad</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">SHEIN</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:40%;background:#dc2626;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">AliExpress</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:65%;background:#16a34a;border-radius:3px"></div></div></div>
+                <div style="display:flex;align-items:center;gap:0.5rem"><span style="width:60px;font-size:0.7rem;color:#767676">Temu</span><div style="flex:1;height:6px;background:#E8E5E1;border-radius:3px"><div style="height:100%;width:70%;background:#d97706;border-radius:3px"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 03 PAIN POINTS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">03 — Diagnóstico</span>
+      <h2 class="step-title">7 puntos de dolor identificados</h2>
+    </div>
+    <p class="body-text">A partir del análisis heurístico y la investigación de usuarios se identificaron los problemas concretos que generan fricción, abandono y desconfianza en la plataforma actual.</p>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-num">01</div>
+        <p class="pain-text"><strong style="color:#141414">Sobrecarga cognitiva.</strong> Demasiados estímulos simultáneos. El usuario no sabe dónde mirar ni qué priorizar.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">02</div>
+        <p class="pain-text"><strong style="color:#141414">Dark patterns.</strong> Manipulación emocional con contadores de tiempo falsos, stock limitado inventado y precios inflados para descuentos ficticios.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">03</div>
+        <p class="pain-text"><strong style="color:#141414">Falta de confianza.</strong> Fotos de producto inconsistentes, traducciones deficientes y reseñas difíciles de filtrar.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">04</div>
+        <p class="pain-text"><strong style="color:#141414">Inconsistencia tipográfica.</strong> Tamaños y pesos de fuente sin jerarquía clara, lo que dificulta la lectura y la toma de decisiones.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">05</div>
+        <p class="pain-text"><strong style="color:#141414">Inconsistencia en botones.</strong> Múltiples estilos de CTA sin sistema definido, genera confusión sobre qué acción tomar.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">06</div>
+        <p class="pain-text"><strong style="color:#141414">Desorganización de secciones.</strong> La arquitectura de información no refleja el modelo mental del usuario comprador.</p>
+      </div>
+      <div class="pain-item" style="grid-column:1/-1">
+        <div class="pain-num">07</div>
+        <p class="pain-text"><strong style="color:#141414">Responsive inconsistente.</strong> La experiencia móvil no es una adaptación pensada — es un recorte de la versión desktop.</p>
+      </div>
+    </div>
+    <div class="quote-block">
+      <p class="quote-text">"La web satura visualmente al usuario y dificulta la toma de decisiones. La navegación es poco intuitiva para quienes buscan productos específicos, generando una experiencia de compra lenta y con gran probabilidad de abandono."</p>
+      <p class="quote-attr">Síntesis del problema</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04 USUARIOS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">04 — Usuarios</span>
+      <h2 class="step-title">Investigación de usuarios & persona</h2>
+    </div>
+    <div class="two-col">
+      <div class="persona-card">
+        <p class="card-label" style="margin-bottom:0.75rem">User Persona</p>
+        <p class="persona-name">Manuela Simons</p>
+        <p class="persona-role">37 años · Médica · Buenos Aires</p>
+        <p class="persona-quote">"Por mi profesión, en ocasiones se me dificulta ir de compras, por ese motivo lo que más utilizo son páginas web y aplicaciones para obtener productos."</p>
+        <p class="persona-section-title">Metas y objetivos</p>
+        <ul class="persona-list">
+          <li>Re-decorar su departamento sin ir a tiendas físicas</li>
+          <li>Comprar ropa según sus intereses de forma ágil</li>
+          <li>Ahorrar el tiempo que no tiene para ir a tiendas</li>
+        </ul>
+        <p class="persona-section-title">Motivaciones</p>
+        <ul class="persona-list">
+          <li>Acceder a promociones y beneficios online</li>
+          <li>Comprar online con entregas a tiempo</li>
+        </ul>
+        <p class="persona-section-title">Frustraciones</p>
+        <ul class="persona-list">
+          <li>No contar con tiempo para ir de compras presenciales</li>
+          <li>Apps y páginas confusas que no encuentran lo que busca</li>
+          <li>Productos que no llegan en el tiempo pactado</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:1rem">Encuestas a usuarios de SHEIN</p>
+        <p class="body-text">Se realizaron encuestas para obtener validación cuantitativa de los problemas detectados.</p>
+        <div style="display:flex;flex-direction:column;gap:0.85rem;margin-top:1.5rem">
+          <div style="background:#F6F5F2;border-radius:12px;padding:1.1rem;border:1px solid #E8E5E1">
+            <p style="font-size:0.8rem;font-weight:600;color:#141414;margin-bottom:0.5rem">¿Sentís que estas apps invaden con información excesiva?</p>
+            <div style="display:flex;align-items:center;gap:0.75rem">
+              <div style="flex:1;height:8px;background:#E8E5E1;border-radius:4px"><div style="height:100%;width:78%;background:#8B1A1A;border-radius:4px"></div></div>
+              <span style="font-size:0.78rem;font-weight:700;color:#8B1A1A">Mayoría: Sí</span>
+            </div>
+          </div>
+          <div style="background:#F6F5F2;border-radius:12px;padding:1.1rem;border:1px solid #E8E5E1">
+            <p style="font-size:0.8rem;font-weight:600;color:#141414;margin-bottom:0.5rem">¿Te resulta sencillo encontrar los filtros que necesitás?</p>
+            <div style="display:flex;align-items:center;gap:0.75rem">
+              <div style="flex:1;height:8px;background:#E8E5E1;border-radius:4px"><div style="height:100%;width:35%;background:#8B1A1A;border-radius:4px"></div></div>
+              <span style="font-size:0.78rem;font-weight:700;color:#8B1A1A">Mayoría: No</span>
+            </div>
+          </div>
+          <div style="background:#F6F5F2;border-radius:12px;padding:1.1rem;border:1px solid #E8E5E1">
+            <p style="font-size:0.8rem;font-weight:600;color:#141414;margin-bottom:0.5rem">¿Utilizás los filtros de búsqueda?</p>
+            <div style="display:flex;align-items:center;gap:0.75rem">
+              <div style="flex:1;height:8px;background:#E8E5E1;border-radius:4px"><div style="height:100%;width:85%;background:#8B1A1A;border-radius:4px"></div></div>
+              <span style="font-size:0.78rem;font-weight:700;color:#8B1A1A">Mayoría: Sí</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight" style="margin-top:1.5rem">
+          <p>La mayoría <strong>usa los filtros pero no los encuentra fácilmente</strong>. Primer punto de acción del rediseño.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 05 DEFINICIÓN -->
+<section class="section">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">05 — Definición</span>
+      <h2 class="step-title">Matriz de necesidades & soluciones</h2>
+    </div>
+    <p class="body-text">Cada necesidad detectada fue mapeada a una solución concreta de diseño, evitando compromisos ambiguos y asegurando que cada decisión respondiera a un dolor real del usuario.</p>
+    <div class="needs-table" style="margin-top:2rem">
+      <div class="need-row">
+        <div class="need-icon">🔍</div>
+        <div>
+          <p class="need-text"><strong style="color:#141414">Filtros difíciles de encontrar.</strong> Los usuarios los usan pero no llegan a ellos fácilmente.</p>
+        </div>
+      </div>
+      <div class="need-solution">
+        <p class="card-label">Solución</p>
+        <p>Filtros menos invasivos y siempre accesibles. Un solo tipo de botón por sección con jerarquía clara.</p>
+      </div>
+      <div class="need-row">
+        <div class="need-icon">💳</div>
+        <div>
+          <p class="need-text"><strong style="color:#141414">Cupones confusos en el carrito.</strong> "No sé cuál de todos los cupones elegir, me marea."</p>
+        </div>
+      </div>
+      <div class="need-solution">
+        <p class="card-label">Solución</p>
+        <p>Sistema unificado de cupones con reglas claras y aplicación automática del más conveniente.</p>
+      </div>
+      <div class="need-row">
+        <div class="need-icon">📏</div>
+        <div>
+          <p class="need-text"><strong style="color:#141414">Tabla de talles poco clara.</strong> "Las tablas de talle no son claras y no las encuentro rápidamente."</p>
+        </div>
+      </div>
+      <div class="need-solution">
+        <p class="card-label">Solución</p>
+        <p>Tabla de talles completa, real y de fácil acceso desde la card del producto.</p>
+      </div>
+      <div class="need-row">
+        <div class="need-icon">⭐</div>
+        <div>
+          <p class="need-text"><strong style="color:#141414">Reseñas difíciles de evaluar.</strong> "La calidad no siempre coincide con la foto del producto."</p>
+        </div>
+      </div>
+      <div class="need-solution">
+        <p class="card-label">Solución</p>
+        <p>Filtros inteligentes por tipo de cuerpo, altura y talla. Reseñas más útiles y recientes primero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 06 ARQUITECTURA -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">06 — Arquitectura</span>
+      <h2 class="step-title">Flujos rediseñados & tree testing</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.75rem">Flujo de compra rediseñado</p>
+        <p class="body-text">Se rediseñó el flujo completo de compra priorizando la eliminación de interrupciones innecesarias y la claridad en cada punto de decisión.</p>
+        <div class="flow-steps" style="margin-top:1.25rem">
+          <div class="flow-step highlight-step">Home</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Búsqueda + Filtros</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Producto</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Reseñas + Talle</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Carrito</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step warn-step">Cupones — fricción</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step" style="background:#F0FDF4;border-color:#BBF7D0;color:#166534">Pago ✓</div>
+        </div>
+        <p style="font-size:0.78rem;color:#767676;margin-top:0.75rem;padding-left:0.85rem;border-left:2px solid #F59E0B">El paso de cupones fue el punto de mayor fricción identificado y priorizado en el rediseño.</p>
+      </div>
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:0.75rem">Tree Testing — Resultados</p>
+        <p class="body-text">Se realizó tree testing para validar que la nueva arquitectura de información fuera intuitiva para los usuarios reales.</p>
+        <div class="tree-result" style="margin-top:1.25rem">
+          <div class="tree-item">
+            <p class="tree-screen">Home</p>
+            <div class="tree-bar-wrap">
+              <div class="tree-bar"><div class="tree-bar-fill" style="width:90%;background:#16a34a"></div></div>
+              <span class="tree-pct" style="color:#16a34a">90%</span>
+            </div>
+          </div>
+          <div class="tree-item">
+            <p class="tree-screen">Productos</p>
+            <div class="tree-bar-wrap">
+              <div class="tree-bar"><div class="tree-bar-fill" style="width:85%;background:#16a34a"></div></div>
+              <span class="tree-pct" style="color:#16a34a">85%</span>
+            </div>
+          </div>
+          <div class="tree-item">
+            <p class="tree-screen">Filtros</p>
+            <div class="tree-bar-wrap">
+              <div class="tree-bar"><div class="tree-bar-fill" style="width:88%;background:#16a34a"></div></div>
+              <span class="tree-pct" style="color:#16a34a">88%</span>
+            </div>
+          </div>
+          <div class="tree-item">
+            <p class="tree-screen">Carrito + Pago</p>
+            <div class="tree-bar-wrap">
+              <div class="tree-bar"><div class="tree-bar-fill" style="width:82%;background:#16a34a"></div></div>
+              <span class="tree-pct" style="color:#16a34a">82%</span>
+            </div>
+          </div>
+          <div class="tree-item" style="grid-column:1/-1">
+            <p class="tree-screen">Ofertas</p>
+            <div class="tree-bar-wrap">
+              <div class="tree-bar"><div class="tree-bar-fill" style="width:45%;background:#d97706"></div></div>
+              <span class="tree-pct" style="color:#d97706">45% — pendiente</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight" style="margin-top:1rem">
+          <p>Los usuarios encontraron el camino correcto en la mayoría de las secciones. <strong>Ofertas quedó como deuda de diseño</strong> a resolver en una iteración futura.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 07 DISEÑO -->
+<section class="section">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">07 — Diseño</span>
+      <h2 class="step-title">Proceso visual & design system</h2>
+    </div>
+
+    <!-- Wireframe stages -->
+    <div class="wireframe-stages">
+      <div class="wireframe-stage">
+        <div class="stage-header">
+          <p class="stage-num">Etapa 1</p>
+          <p class="stage-name">Wireframes en baja fidelidad</p>
+        </div>
+        <div class="stage-body">
+          <p>Estructuración de pantallas enfocada en jerarquía y flujo, sin detalle visual. Identificación de los bloques de contenido necesarios por pantalla.</p>
+        </div>
+      </div>
+      <div class="wireframe-stage">
+        <div class="stage-header">
+          <p class="stage-num">Etapa 2</p>
+          <p class="stage-name">Wireframes en media fidelidad</p>
+        </div>
+        <div class="stage-body">
+          <p>Incorporación de tipografía, espaciados y grilla. Validación del wireflow completo antes de avanzar al diseño visual definitivo.</p>
+        </div>
+      </div>
+      <div class="wireframe-stage">
+        <div class="stage-header">
+          <p class="stage-num">Etapa 3</p>
+          <p class="stage-name">Alta fidelidad + prototipo</p>
+        </div>
+        <div class="stage-body">
+          <p>Diseño final con Design System aplicado. Prototipo navegable en Figma para testing y presentación al cliente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design System -->
+    <div style="margin-top:3.5rem">
+      <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B1A1A;margin-bottom:1.25rem">Design System & UI Kit</p>
+      <div class="ds-grid">
+        <div class="ds-card">
+          <p class="ds-label">Estilos de texto</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            <div style="border-bottom:1px solid #F0EDEA;padding-bottom:0.5rem"><span style="font-size:1.4rem;font-weight:700;letter-spacing:-0.02em">Heading</span></div>
+            <div style="border-bottom:1px solid #F0EDEA;padding-bottom:0.5rem"><span style="font-size:1rem;font-weight:600">Subheading</span></div>
+            <div style="border-bottom:1px solid #F0EDEA;padding-bottom:0.5rem"><span style="font-size:0.88rem;color:#767676">Body text</span></div>
+            <div><span style="font-size:0.75rem;color:#767676;letter-spacing:0.06em;text-transform:uppercase">LABEL</span></div>
+          </div>
+        </div>
+        <div class="ds-card">
+          <p class="ds-label">Componentes</p>
+          <div style="display:flex;flex-direction:column;gap:0.6rem">
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <div style="background:#141414;color:white;font-size:0.75rem;font-weight:600;padding:8px 16px;border-radius:8px">Primario</div>
+              <div style="background:white;color:#141414;font-size:0.75rem;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid #E8E5E1">Secundario</div>
+            </div>
+            <p style="font-size:0.72rem;color:#767676">Un solo sistema de botones. Sin variaciones arbitrarias.</p>
+            <p style="font-size:0.72rem;color:#767676;margin-top:0.25rem">Inputs, selects, cards, badges, filtros — documentados como variables en Figma.</p>
+          </div>
+        </div>
+        <div class="ds-card">
+          <p class="ds-label">Grilla web</p>
+          <div style="display:flex;flex-direction:column;gap:0.6rem">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+              <div><p style="font-size:0.62rem;color:#767676;margin-bottom:0.2rem">Columnas</p><p style="font-size:1rem;font-weight:700">12</p></div>
+              <div><p style="font-size:0.62rem;color:#767676;margin-bottom:0.2rem">Gutters</p><p style="font-size:1rem;font-weight:700">24px</p></div>
+              <div><p style="font-size:0.62rem;color:#767676;margin-bottom:0.2rem">Márgenes</p><p style="font-size:1rem;font-weight:700">80px</p></div>
+              <div><p style="font-size:0.62rem;color:#767676;margin-bottom:0.2rem">Max width</p><p style="font-size:1rem;font-weight:700">1440px</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 08 VALIDACIÓN -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">08 — Validación</span>
+      <h2 class="step-title">A/B Testing — Original vs Rediseño</h2>
+    </div>
+    <p class="body-text">Se realizó A/B testing comparando la versión original de SHEIN con el rediseño propuesto, evaluando la facilidad de uso percibida en cada pantalla clave del flujo de compra.</p>
+    <div class="ab-grid" style="margin-top:2rem">
+      <div class="ab-card original">
+        <p class="ab-label orig">Versión original</p>
+        <div class="ab-metric"><span>Home</span><strong>5.2 / 10</strong></div>
+        <div class="ab-metric"><span>Productos</span><strong>4.8 / 10</strong></div>
+        <div class="ab-metric"><span>Filtros</span><strong>3.9 / 10</strong></div>
+        <div class="ab-metric"><span>Producto</span><strong>5.5 / 10</strong></div>
+        <div class="ab-metric"><span>Carrito</span><strong>4.2 / 10</strong></div>
+        <div class="ab-metric"><span>Pago</span><strong>4.0 / 10</strong></div>
+      </div>
+      <div class="ab-card redesign">
+        <p class="ab-label new">Rediseño propuesto</p>
+        <div class="ab-metric"><span>Home</span><strong class="better">8.4 / 10 ↑</strong></div>
+        <div class="ab-metric"><span>Productos</span><strong class="better">8.1 / 10 ↑</strong></div>
+        <div class="ab-metric"><span>Filtros</span><strong class="better">8.6 / 10 ↑</strong></div>
+        <div class="ab-metric"><span>Producto</span><strong class="better">8.3 / 10 ↑</strong></div>
+        <div class="ab-metric"><span>Carrito</span><strong class="better">7.9 / 10 ↑</strong></div>
+        <div class="ab-metric"><span>Pago</span><strong class="better">8.0 / 10 ↑</strong></div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:2rem">
+      <p>La pantalla de <strong>Filtros</strong> mostró la mejora más significativa: de 3.9 a 8.6 puntos. Era el punto más crítico identificado en la investigación — y el rediseño lo resolvió de forma efectiva.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEARNINGS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num">Aprendizajes</span>
+      <h2 class="step-title">Reflexión del proceso</h2>
+    </div>
+    <div class="three-col">
+      <div class="info-card">
+        <p class="card-label">Investigación</p>
+        <p class="card-title">El problema no era la cantidad — era la jerarquía</p>
+        <p class="card-text">SHEIN tiene el catálogo correcto. El problema era que todos los elementos competían visualmente por atención al mismo tiempo, generando parálisis de decisión.</p>
+      </div>
+      <div class="info-card">
+        <p class="card-label">Diseño</p>
+        <p class="card-title">Un design system unificado es la solución invisible</p>
+        <p class="card-text">Documentar variables y componentes en Figma garantizó que el rediseño fuera escalable y consistente, no solo estéticamente, sino estructuralmente.</p>
+      </div>
+      <div class="info-card">
+        <p class="card-label">Testing</p>
+        <p class="card-title">Las deudas de diseño también son decisiones válidas</p>
+        <p class="card-text">Reconocer que la sección de Ofertas quedó pendiente no fue una falla — fue una decisión estratégica de priorización basada en el impacto real al usuario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="cs-footer">
+  <p>Florencia Bollini · <a href="portfolio.html">Volver al portfolio</a></p>
+</footer>
+
+</body>
+</html>
