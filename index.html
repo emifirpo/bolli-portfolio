@@ -19,7 +19,14 @@
     .btn-primary:hover { opacity: 0.86 !important; transform: translateY(-1px) !important; }
     .btn-outline:hover { border-color: #8B1A1A !important; color: #8B1A1A !important; }
     .nav-btn:hover { color: #141414 !important; }
-    .contact-link:hover { border-color: #8B1A1A !important; background: rgba(139,26,26,0.04) !important; }
+    .contact-link { transition: background 0.3s, border-color 0.3s !important; }
+    .contact-link:hover { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.15) !important; }
+    .contact-link .contact-accent-line { transform: scaleY(0); transform-origin: bottom; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .contact-link:hover .contact-accent-line { transform: scaleY(1); }
+    .contact-link .contact-icon-box { transition: background 0.3s ease, color 0.3s ease; }
+    .contact-link:hover .contact-icon-box { background: rgba(139,26,26,0.22) !important; color: #c0413f !important; }
+    .contact-link .contact-arrow-icon { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.3s; }
+    .contact-link:hover .contact-arrow-icon { transform: translate(3px,-3px) !important; opacity: 0.75 !important; }
     .tag-pill { transition: background 0.2s; }
     .lang-btn { transition: all 0.2s !important; }
     .carousel-track { -webkit-overflow-scrolling: touch; }
@@ -28,6 +35,7 @@
     .carousel-item:hover { box-shadow: 0 32px 80px rgba(0,0,0,0.22) !important; }
     .carousel-nav-btn { transition: all 0.2s !important; }
     .carousel-nav-btn:hover:not(:disabled) { background: rgba(0,0,0,0.06) !important; }
+    .case-cta-btn:hover { background: rgba(255,255,255,0.13) !important; border-color: rgba(255,255,255,0.36) !important; transform: translateX(3px) !important; }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr !important; }
@@ -49,8 +57,9 @@
     @media (max-width: 600px) {
       .section-pad { padding: 4rem 1.25rem !important; }
       .hero-text-wrap { padding: 2rem 1.25rem 3rem !important; }
-      .case-content { padding: 1.5rem !important; }
       .contact-items { gap: 0.75rem !important; }
+      .page-inner { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .carousel-track { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
     }
   </style>
 </head>
@@ -86,7 +95,7 @@
           title: "Diseñadora UX/UI",
           sub: "Diseño productos digitales claros, funcionales y alineados a objetivos reales. No solo interfaces: sistemas que resuelven.",
           cta: "Ver proyectos",
-          ctaContact: "Contactarme",
+          ctaContact: "Trabajemos juntos",
         },
         about: {
           sec: "01",
@@ -110,6 +119,7 @@
           prob: "Problema",
           obj:  "Objetivo",
           proc: "Proceso",
+          viewCase: "Ver caso de estudio",
           cases: [
             {
               tag: "App Móvil · UX/UI",
@@ -178,6 +188,7 @@
           prob: "Problem",
           obj:  "Objective",
           proc: "Process",
+          viewCase: "View case study",
           cases: [
             {
               tag: "Mobile App · UX/UI",
@@ -386,7 +397,7 @@
                   <p style={{ color:C.accent, fontSize:"0.75rem", fontWeight:"700", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"1.75rem" }}>
                     {t.hero.greeting}
                   </p>
-                  <h1 style={{ fontSize:"clamp(2.8rem,6vw,4.5rem)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.03em", marginBottom:"0.6rem" }}>
+                  <h1 style={{ fontSize:"clamp(2.8rem,6vw,4.5rem)", fontWeight:"300", lineHeight:"1.04", letterSpacing:"-0.02em", marginBottom:"0.6rem" }}>
                     {t.hero.name}
                   </h1>
                   <h2 style={{ fontSize:"clamp(1.2rem,2.5vw,1.9rem)", fontWeight:"300", color:C.muted, letterSpacing:"-0.01em", marginBottom:"2rem" }}>
@@ -465,7 +476,7 @@
 
           {/* ── WORK ── */}
           <section id="work" style={{ background:C.bg, padding:"7rem 0 5rem" }}>
-            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"0 2rem" }}>
+            <div className="page-inner" style={{ maxWidth:"1120px", margin:"0 auto", padding:"0 2rem" }}>
               <div style={{ display:"flex", alignItems:"flex-end", justifyContent:"space-between", flexWrap:"wrap", gap:"1rem" }}>
                 <div>
                   <p style={{ color:C.accent, fontSize:"0.72rem", fontWeight:"700", letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"0.6rem" }}>{t.work.sec}</p>
@@ -489,13 +500,50 @@
                     {t.contact.cta} <IcoArrow />
                   </a>
                 </div>
-                <div className="contact-items" style={{ display:"flex", flexDirection:"column", gap:"1rem" }}>
+                <div className="contact-items" style={{ display:"flex", flexDirection:"column", gap:"0.85rem" }}>
                   {t.contact.items.map((item,i) => (
-                    <a key={i} href={item.href} target={i===2?"_blank":undefined} rel="noreferrer" className="contact-link" style={{ display:"flex", alignItems:"center", gap:"1.25rem", padding:"1.25rem 1.5rem", borderRadius:"14px", border:`1px solid ${C.darkBorder}`, color:"white", textDecoration:"none", background:C.darkCard }}>
-                      <span style={{ color:C.accent, flexShrink:0 }}>{CONTACT_ICONS[i]}</span>
-                      <div>
-                        <p style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.32)", marginBottom:"0.2rem", fontWeight:"700", letterSpacing:"0.12em", textTransform:"uppercase" }}>{item.label}</p>
-                        <p style={{ fontSize:"0.9rem", fontWeight:"500" }}>{item.value}</p>
+                    <a
+                      key={i}
+                      href={item.href}
+                      target={i===2 ? "_blank" : undefined}
+                      rel="noreferrer"
+                      className="contact-link"
+                      style={{
+                        display:"flex", alignItems:"center", gap:"1.25rem",
+                        padding:"1.3rem 1.5rem",
+                        borderRadius:"16px",
+                        border:"1px solid rgba(255,255,255,0.07)",
+                        color:"white", textDecoration:"none",
+                        background:"rgba(255,255,255,0.03)",
+                        position:"relative", overflow:"hidden",
+                      }}
+                    >
+                      {/* Accent left stripe */}
+                      <div className="contact-accent-line" style={{ position:"absolute", left:0, top:0, bottom:0, width:"2.5px", background:C.accent, borderRadius:"0 2px 2px 0" }} />
+
+                      {/* Icon box */}
+                      <div className="contact-icon-box" style={{
+                        width:"46px", height:"46px", flexShrink:0,
+                        borderRadius:"12px",
+                        background:"rgba(255,255,255,0.06)",
+                        border:"1px solid rgba(255,255,255,0.07)",
+                        display:"flex", alignItems:"center", justifyContent:"center",
+                        color:"rgba(255,255,255,0.45)",
+                      }}>
+                        {CONTACT_ICONS[i]}
+                      </div>
+
+                      {/* Text */}
+                      <div style={{ flex:1, minWidth:0 }}>
+                        <p style={{ fontSize:"0.62rem", color:"rgba(255,255,255,0.3)", marginBottom:"0.3rem", fontWeight:"700", letterSpacing:"0.15em", textTransform:"uppercase" }}>{item.label}</p>
+                        <p style={{ fontSize:"0.93rem", fontWeight:"500", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{item.value}</p>
+                      </div>
+
+                      {/* Arrow */}
+                      <div className="contact-arrow-icon" style={{ flexShrink:0, opacity:0.2, color:"white" }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+                        </svg>
                       </div>
                     </a>
                   ))}
@@ -538,7 +586,6 @@
 
     function WorkCarousel({ cases, t }) {
       const [active, setActive] = useState(0);
-      const [hovered, setHovered] = useState(null);
       const scrollRef = useRef(null);
       const total = cases.length;
 
@@ -583,12 +630,7 @@
             }}
           >
             {cases.map((cs, i) => (
-              <CarouselCard
-                key={i} cs={cs} idx={i} t={t} total={total}
-                hovered={hovered === i}
-                onHover={() => setHovered(i)}
-                onLeave={() => setHovered(null)}
-              />
+              <CarouselCard key={i} cs={cs} idx={i} t={t} total={total} />
             ))}
           </div>
 
@@ -620,22 +662,19 @@
       );
     }
 
-    function CarouselCard({ cs, idx, t, total, hovered, onHover, onLeave }) {
+    function CarouselCard({ cs, idx, t, total }) {
       return (
         <div
           className="carousel-item"
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           style={{
             flexShrink:0,
             width:"clamp(300px, 54vw, 600px)",
-            height:"640px",
+            height:"580px",
             background:cs.color,
             borderRadius:"20px",
             scrollSnapAlign:"center",
             position:"relative",
             overflow:"hidden",
-            cursor:"default",
           }}
         >
           {/* Geometric background rings */}
@@ -655,61 +694,31 @@
           </div>
 
           {/* Center content */}
-          <div style={{ position:"absolute", left:"2rem", right:"2rem", top:"50%", transform:"translateY(-56%)" }}>
+          <div style={{ position:"absolute", left:"2rem", right:"2rem", top:"50%", transform:"translateY(-60%)" }}>
             <p style={{ color:"rgba(255,255,255,0.3)", fontSize:"0.72rem", letterSpacing:"0.1em", marginBottom:"1.1rem", fontWeight:"500" }}>{cs.ctx}</p>
             <h3 style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:"800", color:"white", letterSpacing:"-0.03em", lineHeight:1.05, marginBottom:"0.75rem" }}>{cs.title}</h3>
-            <span style={{ display:"inline-block", background:"rgba(255,255,255,0.1)", color:"rgba(255,255,255,0.55)", fontSize:"0.68rem", fontWeight:"600", padding:"4px 13px", borderRadius:"20px", letterSpacing:"0.07em" }}>{cs.platform}</span>
+            <p style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.84rem", lineHeight:"1.72", marginBottom:"1.5rem" }}>{cs.desc}</p>
+            <span style={{ display:"inline-block", background:"rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.45)", fontSize:"0.68rem", fontWeight:"600", padding:"4px 13px", borderRadius:"20px", letterSpacing:"0.07em" }}>{cs.platform}</span>
           </div>
 
-          {/* Slide-up info panel */}
-          <div style={{
-            position:"absolute", bottom:0, left:0, right:0,
-            background:"rgba(8,8,8,0.82)",
-            backdropFilter:"blur(28px)",
-            WebkitBackdropFilter:"blur(28px)",
-            borderTop:"1px solid rgba(255,255,255,0.07)",
-            transform: hovered ? "translateY(0)" : "translateY(calc(100% - 68px))",
-            transition:"transform 0.52s cubic-bezier(0.16,1,0.3,1)",
-            padding:"1.4rem 2rem 2rem",
-          }}>
-            {/* Peek row — always visible */}
-            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", height:"36px" }}>
-              <p style={{ color:"rgba(255,255,255,0.38)", fontSize:"0.75rem", fontWeight:"500", letterSpacing:"0.02em" }}>
-                {hovered ? cs.tag : "Ver detalle →"}
-              </p>
-              <div style={{
-                width:"28px", height:"28px", borderRadius:"50%",
-                border:"1px solid rgba(255,255,255,0.12)",
-                display:"flex", alignItems:"center", justifyContent:"center",
-                color:"rgba(255,255,255,0.4)", fontSize:"0.78rem",
-                transform: hovered ? "rotate(180deg)" : "rotate(0deg)",
-                transition:"transform 0.45s cubic-bezier(0.16,1,0.3,1)"
-              }}>↑</div>
-            </div>
-
-            {/* Expanded content */}
-            <p style={{ color:"rgba(255,255,255,0.62)", fontSize:"0.85rem", lineHeight:"1.78", marginTop:"1.25rem", marginBottom:"1.4rem" }}>{cs.desc}</p>
-
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.65rem", marginBottom:"1.25rem" }}>
-              {[[t.work.prob, cs.problem],[t.work.obj, cs.objective]].map(([label, text]) => (
-                <div key={label} style={{ background:"rgba(255,255,255,0.04)", borderRadius:"10px", padding:"0.85rem 1rem", border:"1px solid rgba(255,255,255,0.06)" }}>
-                  <p style={{ fontSize:"0.6rem", fontWeight:"700", color:C.accent, textTransform:"uppercase", letterSpacing:"0.14em", marginBottom:"0.4rem" }}>{label}</p>
-                  <p style={{ fontSize:"0.76rem", color:"rgba(255,255,255,0.45)", lineHeight:"1.6" }}>{text}</p>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <p style={{ fontSize:"0.6rem", fontWeight:"700", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", letterSpacing:"0.14em", marginBottom:"0.6rem" }}>{t.work.proc}</p>
-              <div style={{ display:"flex", flexWrap:"wrap", gap:"0.3rem" }}>
-                {cs.methods.slice(0, 6).map(m => (
-                  <span key={m} style={{ fontSize:"0.67rem", padding:"3px 9px", borderRadius:"5px", border:"1px solid rgba(255,255,255,0.09)", color:"rgba(255,255,255,0.4)" }}>{m}</span>
-                ))}
-                {cs.methods.length > 6 && (
-                  <span style={{ fontSize:"0.67rem", padding:"3px 9px", borderRadius:"5px", border:"1px solid rgba(255,255,255,0.09)", color:"rgba(255,255,255,0.25)" }}>+{cs.methods.length - 6}</span>
-                )}
-              </div>
-            </div>
+          {/* Bottom CTA */}
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"1.5rem 2rem", borderTop:"1px solid rgba(255,255,255,0.07)", background:"rgba(0,0,0,0.25)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}>
+            <a
+              href={cs.caseUrl || "#"}
+              className="case-cta-btn"
+              style={{
+                display:"inline-flex", alignItems:"center", gap:"0.6rem",
+                color:"white", fontSize:"0.82rem", fontWeight:"600",
+                textDecoration:"none", letterSpacing:"0.02em",
+                padding:"10px 20px", borderRadius:"10px",
+                border:"1.5px solid rgba(255,255,255,0.18)",
+                background:"rgba(255,255,255,0.06)",
+                transition:"all 0.2s",
+              }}
+            >
+              {t.work.viewCase || "Ver caso de estudio"}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       );
