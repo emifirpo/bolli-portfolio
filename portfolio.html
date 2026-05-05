@@ -56,7 +56,8 @@
 
     @media (max-width: 600px) {
       .section-pad { padding: 4rem 1.25rem !important; }
-      .hero-text-wrap { padding: 2rem 1.25rem 3rem !important; }
+      .hero-text-wrap { padding: 2rem 0 3rem !important; }
+      #hero { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
       .contact-items { gap: 0.75rem !important; }
       .page-inner { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
       .carousel-track { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
@@ -145,7 +146,7 @@
         },
         contact: {
           sec: "03",
-          title: "Contacto",
+          title: "Trabajemos juntos",
           sub: "Me interesa participar en proyectos donde el diseño tenga impacto real y forme parte de decisiones de producto.",
           cta: "Enviar mensaje",
           items: [
@@ -214,7 +215,7 @@
         },
         contact: {
           sec: "03",
-          title: "Contact",
+          title: "Let's work together",
           sub: "I'm interested in projects where design has real impact and is part of product decisions.",
           cta: "Send a message",
           items: [
@@ -388,8 +389,8 @@
           </div>
 
           {/* ── HERO ── */}
-          <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", paddingTop:"64px" }}>
-            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 2rem", width:"100%" }}>
+          <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", paddingTop:"64px", paddingLeft:"2rem", paddingRight:"2rem" }}>
+            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 0", width:"100%" }}>
               <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"1fr 400px", gap:"5rem", alignItems:"center", minHeight:"calc(100vh - 160px)" }}>
 
                 {/* Text */}
@@ -495,10 +496,7 @@
               <SecHeader sec={t.contact.sec} title={t.contact.title} dark />
               <div className="contact-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"5rem", alignItems:"center", marginTop:"3.5rem" }}>
                 <div>
-                  <p style={{ fontSize:"1.05rem", lineHeight:"1.9", color:"rgba(255,255,255,0.5)", marginBottom:"2.5rem" }}>{t.contact.sub}</p>
-                  <a href="mailto:florencia.bollini@gmail.com" className="btn-primary" style={{ display:"inline-flex", alignItems:"center", gap:"0.6rem", background:C.accent, color:"white", padding:"13px 28px", borderRadius:"10px", fontSize:"0.93rem", fontWeight:"600", textDecoration:"none", letterSpacing:"0.01em" }}>
-                    {t.contact.cta} <IcoArrow />
-                  </a>
+                  <p style={{ fontSize:"1.05rem", lineHeight:"1.9", color:"rgba(255,255,255,0.5)" }}>{t.contact.sub}</p>
                 </div>
                 <div className="contact-items" style={{ display:"flex", flexDirection:"column", gap:"0.85rem" }}>
                   {t.contact.items.map((item,i) => (
