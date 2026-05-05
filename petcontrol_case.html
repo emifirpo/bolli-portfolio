@@ -12,12 +12,15 @@ body{background:#F6F5F2;font-family:'Inter',-apple-system,sans-serif;color:#1414
 ::selection{background:#8B1A1A;color:white}
 
 /* NAV */
-.cs-nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(246,245,242,0.93);backdrop-filter:blur(18px);border-bottom:1px solid #E8E5E1;height:60px;display:flex;align-items:center;padding:0 2rem}
-.cs-nav-inner{max-width:1080px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
-.back-btn{display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:#767676;font-size:0.8rem;font-weight:500;letter-spacing:0.03em;transition:color 0.2s}
-.back-btn:hover{color:#141414}
-.nav-project{font-size:0.8rem;font-weight:700;letter-spacing:0.06em;color:#141414}
+.cs-nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(246,245,242,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #E8E5E1;height:64px;display:flex;align-items:center;padding:0 2rem}
+.cs-nav-inner{max-width:1120px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{text-decoration:none;font-size:0.88rem;font-weight:800;letter-spacing:0.07em;color:#141414;font-family:inherit}
+.nav-logo span{color:#8B1A1A}
+.nav-right{display:flex;align-items:center;gap:0.75rem}
 .nav-tag{font-size:0.72rem;color:#8B1A1A;font-weight:600;letter-spacing:0.08em;background:rgba(139,26,26,0.08);padding:3px 10px;border-radius:20px}
+.nav-back{display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;font-size:0.76rem;font-weight:500;color:#767676;letter-spacing:0.02em;border:1px solid #E8E5E1;border-radius:8px;padding:5px 12px;transition:color 0.2s,border-color 0.2s}
+.nav-back:hover{color:#141414;border-color:#141414}
+@media(max-width:560px){.nav-tag{display:none}}
 
 /* HERO */
 .hero{background:#111110;color:white;padding:120px 2rem 80px;position:relative;overflow:hidden}
@@ -182,13 +185,13 @@ p+p{margin-top:1rem}
 <!-- NAV -->
 <nav class="cs-nav">
   <div class="cs-nav-inner">
-    <a href="portfolio.html" class="back-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Florencia Bollini
-    </a>
-    <div style="display:flex;align-items:center;gap:1rem">
-      <span class="nav-project">PetControl</span>
-      <span class="nav-tag">App Móvil · UX/UI</span>
+    <a href="portfolio.html" class="nav-logo">FLORENCIA <span>BOLLINI</span></a>
+    <div class="nav-right">
+      <span class="nav-tag">PetControl · App Móvil</span>
+      <a href="portfolio.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Volver
+      </a>
     </div>
   </div>
 </nav>

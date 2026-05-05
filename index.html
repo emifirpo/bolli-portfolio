@@ -38,7 +38,8 @@
     .case-cta-btn:hover { background: rgba(255,255,255,0.13) !important; border-color: rgba(255,255,255,0.36) !important; transform: translateX(3px) !important; }
 
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr !important; }
+      .hero-grid { grid-template-columns: 1fr !important; min-height: auto !important; }
+      .hero-inner { padding: 0 !important; }
       .hero-photo { display: none !important; }
       .about-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
       .contact-grid { grid-template-columns: 1fr !important; }
@@ -56,8 +57,8 @@
 
     @media (max-width: 600px) {
       .section-pad { padding: 4rem 1.25rem !important; }
-      .hero-text-wrap { padding: 2rem 0 3rem !important; }
-      #hero { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .hero-text-wrap { padding: 0 0 2rem !important; }
+      #hero { padding-left: 1.25rem !important; padding-right: 1.25rem !important; padding-top: calc(64px + 3.5rem) !important; padding-bottom: 3.5rem !important; min-height: auto !important; align-items: flex-start !important; }
       .contact-items { gap: 0.75rem !important; }
       .page-inner { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
       .carousel-track { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
@@ -390,7 +391,7 @@
 
           {/* ── HERO ── */}
           <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", paddingTop:"64px", paddingLeft:"2rem", paddingRight:"2rem" }}>
-            <div style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 0", width:"100%" }}>
+            <div className="hero-inner" style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 0", width:"100%" }}>
               <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"1fr 400px", gap:"5rem", alignItems:"center", minHeight:"calc(100vh - 160px)" }}>
 
                 {/* Text */}
