@@ -33,6 +33,21 @@ body{background:#F6F5F2;font-family:'Inter',-apple-system,sans-serif;color:#1414
 .meta-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;font-size:0.75rem;font-weight:500;color:rgba(255,255,255,0.6)}
 .meta-pill span{color:rgba(255,255,255,0.3);margin-right:0.35rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em}
 
+/* HERO MOCKUP */
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-mockup{position:relative}
+.hero-mockup-glow{position:absolute;inset:-60px;border-radius:50%;background:rgba(139,26,26,0.14);filter:blur(70px);pointer-events:none;z-index:0}
+.hero-browser{position:relative;z-index:1;border-radius:12px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.1);box-shadow:0 40px 100px rgba(0,0,0,0.75);transform:perspective(1400px) rotateY(-7deg) rotateX(3deg);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+.hero-browser:hover{transform:perspective(1400px) rotateY(-2deg) rotateX(1deg)}
+.hero-browser-bar{height:36px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 14px;gap:7px;flex-shrink:0}
+.hero-browser-dot{width:9px;height:9px;border-radius:50%}
+.hero-browser-url{flex:1;margin-left:10px;height:16px;border-radius:5px;background:rgba(255,255,255,0.07);display:flex;align-items:center;padding:0 10px}
+.hero-browser-urltext{font-size:0.68rem;color:rgba(255,255,255,0.28);font-weight:500}
+.hero-browser-screen{height:400px;overflow:hidden;position:relative}
+.hero-browser-screen img{width:100%;display:block;object-fit:cover;object-position:top}
+.hero-browser-fade{position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(to bottom,transparent,#1A0F2E);pointer-events:none}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-mockup{display:none}}
+
 /* OPENING QUESTION */
 .opening{background:#2D1F3D;color:white;padding:4rem 2rem;text-align:center}
 .opening-inner{max-width:780px;margin:0 auto}
@@ -160,6 +175,20 @@ p+p{margin-top:1rem}
 .swatch-info label{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#767676;display:block}
 .swatch-info p{font-size:0.8rem;font-weight:600;color:#141414}
 
+/* UI GALLERY */
+.ui-gallery{display:flex;flex-direction:column;gap:1.75rem;margin-top:2.5rem}
+.ui-gallery-row{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+.browser-preview{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 24px 64px rgba(0,0,0,0.5)}
+.browser-topbar{height:36px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 14px;gap:7px;flex-shrink:0}
+.browser-dot{width:9px;height:9px;border-radius:50%}
+.browser-urlbar{flex:1;margin-left:10px;height:16px;border-radius:5px;background:rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 10px}
+.browser-urltext{font-size:0.68rem;color:rgba(255,255,255,0.28);font-weight:500;letter-spacing:0.01em}
+.browser-screen-lg{height:480px;overflow:hidden;background:#fff}
+.browser-screen-sm{height:320px;overflow:hidden;background:#fff}
+.browser-screen-lg img,.browser-screen-sm img{width:100%;display:block;object-fit:cover;object-position:top}
+.screen-caption{margin-top:0.85rem;font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.28);letter-spacing:0.16em;text-transform:uppercase}
+@media(max-width:640px){.ui-gallery-row{grid-template-columns:1fr}.browser-screen-sm{height:260px}}
+
 /* TREE TEST */
 .tree-result{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
 .tree-item{padding:1rem;border-radius:12px;border:1px solid #E8E5E1;background:white}
@@ -208,16 +237,40 @@ p+p{margin-top:1rem}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Caso de Estudio 02</p>
-    <h1 class="hero-title">SHEIN</h1>
-    <p class="hero-subtitle">Rediseño de Experiencia de Compra</p>
-    <p class="hero-sub">Rediseño de la interfaz web de SHEIN enfocado en reducir la sobrecarga cognitiva, eliminar dark patterns y construir confianza en el usuario durante el proceso de compra.</p>
-    <div class="hero-meta">
-      <div class="meta-pill"><span>Plataforma</span>Desktop Web</div>
-      <div class="meta-pill"><span>Herramienta</span>Figma</div>
-      <div class="meta-pill"><span>Contexto</span>Diplomatura UX/UI · UTN</div>
-      <div class="meta-pill"><span>Rol</span>UX/UI Designer</div>
-      <div class="meta-pill"><span>Año</span>2025</div>
+    <div class="hero-grid">
+
+      <!-- Text -->
+      <div>
+        <p class="hero-eyebrow">Caso de Estudio 02</p>
+        <h1 class="hero-title">SHEIN</h1>
+        <p class="hero-subtitle">Rediseño de Experiencia de Compra</p>
+        <p class="hero-sub">Rediseño de la interfaz web de SHEIN enfocado en reducir la sobrecarga cognitiva, eliminar dark patterns y construir confianza en el usuario durante el proceso de compra.</p>
+        <div class="hero-meta">
+          <div class="meta-pill"><span>Plataforma</span>Desktop Web</div>
+          <div class="meta-pill"><span>Herramienta</span>Figma</div>
+          <div class="meta-pill"><span>Contexto</span>Diplomatura UX/UI · UTN</div>
+          <div class="meta-pill"><span>Rol</span>UX/UI Designer</div>
+          <div class="meta-pill"><span>Año</span>2025</div>
+        </div>
+      </div>
+
+      <!-- Browser mockup -->
+      <div class="hero-mockup">
+        <div class="hero-mockup-glow"></div>
+        <div class="hero-browser">
+          <div class="hero-browser-bar">
+            <div class="hero-browser-dot" style="background:rgba(255,95,87,0.9)"></div>
+            <div class="hero-browser-dot" style="background:rgba(255,189,46,0.9)"></div>
+            <div class="hero-browser-dot" style="background:rgba(40,201,64,0.9)"></div>
+            <div class="hero-browser-url"><span class="hero-browser-urltext">shein.com — Inicio</span></div>
+          </div>
+          <div class="hero-browser-screen">
+            <img src="shein_home.png" alt="SHEIN Rediseño — Home">
+            <div class="hero-browser-fade"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -726,6 +779,74 @@ p+p{margin-top:1rem}
     </div>
     <div class="highlight" style="margin-top:2rem">
       <p>La pantalla de <strong>Filtros</strong> mostró la mejora más significativa: de 3.9 a 8.6 puntos. Era el punto más crítico identificado en la investigación — y el rediseño lo resolvió de forma efectiva.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- UI RESULT -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num" style="color:#c0413f">09 — Resultado</span>
+      <h2 class="step-title" style="color:white">Diseño UI · Pantallas finales</h2>
+    </div>
+    <p class="body-text" style="color:rgba(255,255,255,0.45);max-width:640px">
+      El resultado visual integra los principios trabajados a lo largo del proceso: jerarquía clara, reducción de ruido y confianza en la interfaz. Cada pantalla fue diseñada en Figma a partir de los hallazgos de investigación y las decisiones de arquitectura.
+    </p>
+
+    <div class="ui-gallery">
+
+      <!-- Home page — featured full width -->
+      <div>
+        <div class="browser-preview">
+          <div class="browser-topbar">
+            <div class="browser-dot" style="background:rgba(255,95,87,0.9)"></div>
+            <div class="browser-dot" style="background:rgba(255,189,46,0.9)"></div>
+            <div class="browser-dot" style="background:rgba(40,201,64,0.9)"></div>
+            <div class="browser-urlbar"><span class="browser-urltext">shein.com — Inicio</span></div>
+          </div>
+          <div class="browser-screen-lg">
+            <img src="shein_home.png" alt="SHEIN Rediseño — Home">
+          </div>
+        </div>
+        <p class="screen-caption">01 · Home — Vista principal</p>
+      </div>
+
+      <!-- Two secondary screens -->
+      <div class="ui-gallery-row">
+        <div>
+          <div class="browser-preview">
+            <div class="browser-topbar">
+              <div class="browser-dot" style="background:rgba(255,95,87,0.9)"></div>
+              <div class="browser-dot" style="background:rgba(255,189,46,0.9)"></div>
+              <div class="browser-dot" style="background:rgba(40,201,64,0.9)"></div>
+              <div class="browser-urlbar"><span class="browser-urltext">shein.com — Categorías</span></div>
+            </div>
+            <div class="browser-screen-sm">
+              <img src="shein_menu.png" alt="SHEIN Rediseño — Menú">
+            </div>
+          </div>
+          <p class="screen-caption">02 · Navegación por categorías</p>
+        </div>
+
+        <div>
+          <div class="browser-preview">
+            <div class="browser-topbar">
+              <div class="browser-dot" style="background:rgba(255,95,87,0.9)"></div>
+              <div class="browser-dot" style="background:rgba(255,189,46,0.9)"></div>
+              <div class="browser-dot" style="background:rgba(40,201,64,0.9)"></div>
+              <div class="browser-urlbar"><span class="browser-urltext">shein.com — Producto</span></div>
+            </div>
+            <div class="browser-screen-sm">
+              <img src="shein_producto.png" alt="SHEIN Rediseño — Producto">
+            </div>
+          </div>
+          <p class="screen-caption">03 · Detalle de producto</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

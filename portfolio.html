@@ -44,7 +44,7 @@
       .about-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
       .contact-grid { grid-template-columns: 1fr !important; }
       .footer-inner { flex-direction: column !important; align-items: center !important; text-align: center; gap: 0.25rem !important; }
-      .carousel-item { width: clamp(260px, 82vw, 400px) !important; height: 520px !important; }
+      .carousel-item { width: clamp(260px, 82vw, 400px) !important; height: 580px !important; }
     }
     @media (max-width: 680px) {
       .nav-links { display: none !important; }
@@ -131,7 +131,7 @@
               problem: "Los dueños de mascotas gestionan información clave de forma desorganizada, generando olvidos, seguimiento ineficiente y riesgo en la salud animal.",
               objective: "Diseñar una app que optimice la organización del cuidado de mascotas, mejorando la prevención y el acceso a información crítica.",
               methods: ["Desktop Research","Benchmarking","Entrevistas cualitativas","Proto Persona","User Persona","Mapa de empatía","POV","MVP","Mapa de sitio","Card Sorting","Task Flow","User Flow","Wireframes baja/alta fidelidad"],
-              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html",
+              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html", mockupImage: null,
             },
             {
               tag: "Rediseño Web · UX/UI",
@@ -141,7 +141,7 @@
               problem: "La web presenta sobrecarga informativa, dark patterns y navegación poco intuitiva, generando experiencias de compra lentas con alta probabilidad de abandono.",
               objective: "Optimizar la experiencia de compra mejorando la claridad, confianza y facilitando la búsqueda y selección de productos.",
               methods: ["Desktop Research","Benchmarking competitivo (SHEIN vs AliExpress vs Temu)","Encuestas de usuario","Análisis de pain points","Rediseño de arquitectura de información","Prototipado en Figma"],
-              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html",
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html", mockupImage: null,
             },
           ],
         },
@@ -200,7 +200,7 @@
               problem: "Pet owners manage key information in a disorganized way, causing forgetting, inefficient tracking and health risks for their animals.",
               objective: "Design an app that optimizes pet care organization, improving prevention and access to critical information for the user.",
               methods: ["Desktop Research","Benchmarking","Qualitative interviews","Proto Persona","User Persona","Empathy Map","POV","MVP","Site Map","Card Sorting","Task Flow","User Flow","Lo & Hi-fi Wireframes"],
-              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html",
+              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html", mockupImage: null,
             },
             {
               tag: "Web Redesign · UX/UI",
@@ -210,7 +210,7 @@
               problem: "The website presents information overload, dark patterns and non-intuitive navigation, creating a slow shopping experience with high abandonment probability.",
               objective: "Optimize the shopping experience by improving clarity, trust and facilitating product search and selection.",
               methods: ["Desktop Research","Competitive Benchmarking (SHEIN vs AliExpress vs Temu)","User surveys","Pain points analysis","Information architecture redesign","Figma prototyping"],
-              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html",
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html", mockupImage: null,
             },
           ],
         },
@@ -583,6 +583,85 @@
       );
     }
 
+    function PhoneMockup({ image }) {
+      return (
+        <div style={{ position:"relative", flexShrink:0 }}>
+          <div style={{ position:"absolute", inset:"-18px", borderRadius:"50%", background:"rgba(255,255,255,0.07)", filter:"blur(22px)", pointerEvents:"none" }} />
+          <div style={{
+            position:"relative",
+            width:100, height:196,
+            borderRadius:22,
+            background:"rgba(6,6,10,0.85)",
+            border:"1.5px solid rgba(255,255,255,0.22)",
+            boxShadow:"0 20px 56px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1)",
+            overflow:"hidden",
+          }}>
+            {/* Dynamic island */}
+            <div style={{ position:"absolute", top:11, left:"50%", transform:"translateX(-50%)", width:36, height:7, borderRadius:6, background:"rgba(0,0,0,0.9)", border:"1px solid rgba(255,255,255,0.07)", zIndex:3 }} />
+            {/* Screen area */}
+            <div style={{ position:"absolute", top:4, left:4, right:4, bottom:4, borderRadius:19, overflow:"hidden", background: image ? "transparent" : "rgba(255,255,255,0.03)" }}>
+              {image ? (
+                <img src={image} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" }} />
+              ) : (
+                <div style={{ padding:"28px 8px 8px", display:"flex", flexDirection:"column", gap:5 }}>
+                  <div style={{ height:18, borderRadius:6, background:"rgba(255,255,255,0.08)" }} />
+                  <div style={{ height:5, borderRadius:3, background:"rgba(255,255,255,0.04)", width:"70%" }} />
+                  <div style={{ height:5, borderRadius:3, background:"rgba(255,255,255,0.04)", width:"50%", marginBottom:6 }} />
+                  <div style={{ height:34, borderRadius:7, background:"rgba(255,255,255,0.05)" }} />
+                  <div style={{ height:34, borderRadius:7, background:"rgba(255,255,255,0.04)" }} />
+                  <div style={{ height:5, borderRadius:3, background:"rgba(255,255,255,0.03)", width:"75%", marginTop:4 }} />
+                </div>
+              )}
+            </div>
+            {/* Home indicator */}
+            <div style={{ position:"absolute", bottom:8, left:"50%", transform:"translateX(-50%)", width:30, height:3, borderRadius:2, background:"rgba(255,255,255,0.28)" }} />
+          </div>
+        </div>
+      );
+    }
+
+    function BrowserMockup({ image }) {
+      return (
+        <div style={{ position:"relative", flexShrink:0 }}>
+          <div style={{ position:"absolute", inset:"-18px", borderRadius:"16px", background:"rgba(255,255,255,0.05)", filter:"blur(24px)", pointerEvents:"none" }} />
+          <div style={{
+            position:"relative",
+            width:244, height:160,
+            borderRadius:10,
+            background:"rgba(6,5,14,0.8)",
+            border:"1.5px solid rgba(255,255,255,0.18)",
+            boxShadow:"0 20px 56px rgba(0,0,0,0.65)",
+            overflow:"hidden",
+          }}>
+            {/* Browser chrome */}
+            <div style={{ height:27, background:"rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.08)", display:"flex", alignItems:"center", padding:"0 10px", gap:5 }}>
+              {["rgba(255,95,87,0.85)","rgba(255,189,46,0.85)","rgba(40,201,64,0.85)"].map((c,i) => (
+                <div key={i} style={{ width:7, height:7, borderRadius:"50%", background:c }} />
+              ))}
+              <div style={{ flex:1, marginLeft:8, height:13, borderRadius:4, background:"rgba(255,255,255,0.07)", display:"flex", alignItems:"center", padding:"0 8px" }}>
+                <div style={{ width:52, height:4, borderRadius:2, background:"rgba(255,255,255,0.16)" }} />
+              </div>
+            </div>
+            {/* Screen area */}
+            <div style={{ height:"calc(100% - 27px)", overflow:"hidden", background: image ? "transparent" : "rgba(255,255,255,0.02)" }}>
+              {image ? (
+                <img src={image} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" }} />
+              ) : (
+                <div style={{ padding:"10px 12px", display:"flex", flexDirection:"column", gap:5 }}>
+                  <div style={{ height:5, borderRadius:2, background:"rgba(255,255,255,0.08)", width:"68%" }} />
+                  <div style={{ height:5, borderRadius:2, background:"rgba(255,255,255,0.05)", width:"48%", marginBottom:4 }} />
+                  <div style={{ height:34, borderRadius:5, background:"rgba(255,255,255,0.05)" }} />
+                  <div style={{ height:5, borderRadius:2, background:"rgba(255,255,255,0.04)", width:"80%", marginTop:4 }} />
+                  <div style={{ height:5, borderRadius:2, background:"rgba(255,255,255,0.03)", width:"62%" }} />
+                  <div style={{ height:5, borderRadius:2, background:"rgba(255,255,255,0.03)", width:"72%" }} />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     function WorkCarousel({ cases, t }) {
       const [active, setActive] = useState(0);
       const scrollRef = useRef(null);
@@ -662,13 +741,15 @@
     }
 
     function CarouselCard({ cs, idx, t, total }) {
+      const isMobile = cs.platform === "Android";
+
       return (
         <div
           className="carousel-item"
           style={{
             flexShrink:0,
             width:"clamp(300px, 54vw, 600px)",
-            height:"580px",
+            height:"620px",
             background:cs.color,
             borderRadius:"20px",
             scrollSnapAlign:"center",
@@ -692,16 +773,24 @@
             <span style={{ color:"rgba(255,255,255,0.18)", fontSize:"0.7rem", fontWeight:"600", letterSpacing:"0.04em" }}>{String(idx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
           </div>
 
-          {/* Center content */}
-          <div style={{ position:"absolute", left:"2rem", right:"2rem", top:"50%", transform:"translateY(-60%)" }}>
-            <p style={{ color:"rgba(255,255,255,0.3)", fontSize:"0.72rem", letterSpacing:"0.1em", marginBottom:"1.1rem", fontWeight:"500" }}>{cs.ctx}</p>
-            <h3 style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:"800", color:"white", letterSpacing:"-0.03em", lineHeight:1.05, marginBottom:"0.75rem" }}>{cs.title}</h3>
-            <p style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.84rem", lineHeight:"1.72", marginBottom:"1.5rem" }}>{cs.desc}</p>
+          {/* Mockup area — upper portion */}
+          <div style={{ position:"absolute", top:"62px", left:0, right:0, height:"236px", display:"flex", alignItems:"center", justifyContent:"center", zIndex:2 }}>
+            {isMobile ? <PhoneMockup image={cs.mockupImage} /> : <BrowserMockup image={cs.mockupImage} />}
+          </div>
+
+          {/* Divider */}
+          <div style={{ position:"absolute", top:"298px", left:"2rem", right:"2rem", height:"1px", background:"rgba(255,255,255,0.07)" }} />
+
+          {/* Text content — lower portion */}
+          <div style={{ position:"absolute", top:"316px", left:"2rem", right:"2rem", bottom:"76px", overflow:"hidden" }}>
+            <p style={{ color:"rgba(255,255,255,0.3)", fontSize:"0.7rem", letterSpacing:"0.1em", marginBottom:"0.55rem", fontWeight:"500" }}>{cs.ctx}</p>
+            <h3 style={{ fontSize:"clamp(1.5rem,3vw,2.1rem)", fontWeight:"800", color:"white", letterSpacing:"-0.03em", lineHeight:1.08, marginBottom:"0.5rem" }}>{cs.title}</h3>
+            <p style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.8rem", lineHeight:"1.65", marginBottom:"0.9rem" }}>{cs.desc}</p>
             <span style={{ display:"inline-block", background:"rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.45)", fontSize:"0.68rem", fontWeight:"600", padding:"4px 13px", borderRadius:"20px", letterSpacing:"0.07em" }}>{cs.platform}</span>
           </div>
 
           {/* Bottom CTA */}
-          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"1.5rem 2rem", borderTop:"1px solid rgba(255,255,255,0.07)", background:"rgba(0,0,0,0.25)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}>
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"1.25rem 2rem", borderTop:"1px solid rgba(255,255,255,0.07)", background:"rgba(0,0,0,0.25)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}>
             <a
               href={cs.caseUrl || "#"}
               className="case-cta-btn"

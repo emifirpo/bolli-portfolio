@@ -34,6 +34,29 @@ body{background:#F6F5F2;font-family:'Inter',-apple-system,sans-serif;color:#1414
 .meta-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;font-size:0.75rem;font-weight:500;color:rgba(255,255,255,0.6)}
 .meta-pill span{color:rgba(255,255,255,0.35);margin-right:0.35rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em}
 
+/* HERO PHONE MOCKUP */
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center}
+.hero-mockup{position:relative;display:flex;justify-content:center}
+.hero-mockup-glow{position:absolute;inset:-50px;border-radius:50%;background:rgba(139,26,26,0.12);filter:blur(60px);pointer-events:none;z-index:0}
+.hero-phone{position:relative;z-index:1;width:200px;height:388px;border-radius:36px;background:rgba(6,6,10,0.9);border:2px solid rgba(255,255,255,0.18);box-shadow:0 40px 100px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.1);overflow:hidden;transform:perspective(1200px) rotateY(8deg) rotateX(-3deg);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+.hero-phone:hover{transform:perspective(1200px) rotateY(2deg) rotateX(-1deg)}
+.hero-phone-island{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:64px;height:10px;border-radius:8px;background:rgba(0,0,0,0.95);border:1px solid rgba(255,255,255,0.07);z-index:3}
+.hero-phone-screen{position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:32px;overflow:hidden}
+.hero-phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.hero-phone-home{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:48px;height:4px;border-radius:3px;background:rgba(255,255,255,0.3);z-index:3}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-mockup{display:none}}
+
+/* UI RESULTADO GALLERY */
+.phone-gallery{display:flex;justify-content:center;align-items:flex-end;gap:3rem;margin-top:3.5rem;flex-wrap:wrap}
+.phone-frame{position:relative;width:210px;height:408px;border-radius:38px;background:rgba(6,6,10,0.95);border:2px solid rgba(255,255,255,0.18);box-shadow:0 40px 100px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.1);overflow:hidden;flex-shrink:0}
+.phone-frame-island{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:64px;height:10px;border-radius:8px;background:rgba(0,0,0,0.95);border:1px solid rgba(255,255,255,0.07);z-index:3}
+.phone-frame-screen{position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:34px;overflow:hidden}
+.phone-frame-screen img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.phone-frame-home{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:48px;height:4px;border-radius:3px;background:rgba(255,255,255,0.3);z-index:3}
+.phone-caption{margin-top:1rem;text-align:center;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.phone-frame-featured{transform:scale(1.08);transform-origin:bottom center}
+@media(max-width:640px){.phone-gallery{gap:1.5rem}.phone-frame{width:160px;height:310px}.phone-frame-featured{transform:none}}
+
 /* OVERVIEW STRIP */
 .overview{background:white;border-bottom:1px solid #E8E5E1;padding:2.5rem 2rem}
 .overview-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
@@ -209,15 +232,34 @@ p+p{margin-top:1rem}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Caso de Estudio 01</p>
-    <h1 class="hero-title">PetControl</h1>
-    <p class="hero-sub">Aplicación Android para la gestión y seguimiento integral de la salud y cuidado de mascotas, diseñada con foco en claridad, prevención y reducción de carga mental del usuario.</p>
-    <div class="hero-meta">
-      <div class="meta-pill"><span>Plataforma</span>Android</div>
-      <div class="meta-pill"><span>Herramienta</span>Figma</div>
-      <div class="meta-pill"><span>Contexto</span>Diplomatura UX/UI · UTN</div>
-      <div class="meta-pill"><span>Rol</span>UX/UI Designer</div>
-      <div class="meta-pill"><span>Año</span>2025</div>
+    <div class="hero-grid">
+
+      <!-- Text -->
+      <div>
+        <p class="hero-eyebrow">Caso de Estudio 01</p>
+        <h1 class="hero-title">PetControl</h1>
+        <p class="hero-sub">Aplicación Android para la gestión y seguimiento integral de la salud y cuidado de mascotas, diseñada con foco en claridad, prevención y reducción de carga mental del usuario.</p>
+        <div class="hero-meta">
+          <div class="meta-pill"><span>Plataforma</span>Android</div>
+          <div class="meta-pill"><span>Herramienta</span>Figma</div>
+          <div class="meta-pill"><span>Contexto</span>Diplomatura UX/UI · UTN</div>
+          <div class="meta-pill"><span>Rol</span>UX/UI Designer</div>
+          <div class="meta-pill"><span>Año</span>2025</div>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="hero-mockup">
+        <div class="hero-mockup-glow"></div>
+        <div class="hero-phone">
+          <div class="hero-phone-island"></div>
+          <div class="hero-phone-screen">
+            <img src="petcontrol_vacunas.png" alt="PetControl — Pantalla Vacunas">
+          </div>
+          <div class="hero-phone-home"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -750,6 +792,31 @@ p+p{margin-top:1rem}
         <p class="heuristic-num">09</p>
         <p style="font-size:0.78rem;font-weight:600;color:#141414;margin-bottom:0.3rem">Reconocer y recuperarse de errores</p>
         <p class="heuristic-text">Mensajes claros y acciones de recuperación frente a errores de carga o datos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 08 RESULTADO -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div class="step-header">
+      <span class="step-num" style="color:#c0413f">08 — Resultado</span>
+      <h2 class="step-title step-title-dark">Interfaz final</h2>
+    </div>
+    <p class="body-text body-text-dark">El resultado integra los principios trabajados durante el proceso: arquitectura de información clara, jerarquía visual definida y un lenguaje visual cálido y accesible adaptado al contexto emocional del dueño de mascotas.</p>
+    <div class="phone-gallery">
+      <div>
+        <div class="phone-frame phone-frame-featured">
+          <div class="phone-frame-island"></div>
+          <div class="phone-frame-screen">
+            <img src="petcontrol_vacunas.png" alt="PetControl — Pantalla Vacunas">
+          </div>
+          <div class="phone-frame-home"></div>
+        </div>
+        <p class="phone-caption">Ficha Médica · Vacunas</p>
       </div>
     </div>
   </div>

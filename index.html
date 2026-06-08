@@ -40,11 +40,14 @@
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr !important; min-height: auto !important; }
       .hero-inner { padding: 0 !important; }
-      .hero-photo { display: none !important; }
+      .hero-photo { display: flex !important; justify-content: center !important; margin-top: 2.5rem !important; }
+      .hero-photo > div { width: 220px !important; }
       .about-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
       .contact-grid { grid-template-columns: 1fr !important; }
       .footer-inner { flex-direction: column !important; align-items: center !important; text-align: center; gap: 0.25rem !important; }
-      .carousel-item { width: clamp(260px, 82vw, 400px) !important; height: 520px !important; }
+      .carousel-item { width: clamp(260px, 82vw, 400px) !important; height: 580px !important; }
+      .browser-mockup-wrap { transform: scale(0.72); transform-origin: bottom right; }
+      .card-text-node { top: 72px !important; transform: none !important; right: 130px !important; }
     }
     @media (max-width: 680px) {
       .nav-links { display: none !important; }
@@ -131,7 +134,7 @@
               problem: "Los dueños de mascotas gestionan información clave de forma desorganizada, generando olvidos, seguimiento ineficiente y riesgo en la salud animal.",
               objective: "Diseñar una app que optimice la organización del cuidado de mascotas, mejorando la prevención y el acceso a información crítica.",
               methods: ["Desktop Research","Benchmarking","Entrevistas cualitativas","Proto Persona","User Persona","Mapa de empatía","POV","MVP","Mapa de sitio","Card Sorting","Task Flow","User Flow","Wireframes baja/alta fidelidad"],
-              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html",
+              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html", mockupImage: "petcontrol_vacunas.png",
             },
             {
               tag: "Rediseño Web · UX/UI",
@@ -141,7 +144,7 @@
               problem: "La web presenta sobrecarga informativa, dark patterns y navegación poco intuitiva, generando experiencias de compra lentas con alta probabilidad de abandono.",
               objective: "Optimizar la experiencia de compra mejorando la claridad, confianza y facilitando la búsqueda y selección de productos.",
               methods: ["Desktop Research","Benchmarking competitivo (SHEIN vs AliExpress vs Temu)","Encuestas de usuario","Análisis de pain points","Rediseño de arquitectura de información","Prototipado en Figma"],
-              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html",
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html", mockupImage: "shein_home.png",
             },
           ],
         },
@@ -200,7 +203,7 @@
               problem: "Pet owners manage key information in a disorganized way, causing forgetting, inefficient tracking and health risks for their animals.",
               objective: "Design an app that optimizes pet care organization, improving prevention and access to critical information for the user.",
               methods: ["Desktop Research","Benchmarking","Qualitative interviews","Proto Persona","User Persona","Empathy Map","POV","MVP","Site Map","Card Sorting","Task Flow","User Flow","Lo & Hi-fi Wireframes"],
-              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html",
+              platform: "Android", color: "#1A2535", emoji: "🐾", caseUrl: "petcontrol_case.html", mockupImage: "petcontrol_vacunas.png",
             },
             {
               tag: "Web Redesign · UX/UI",
@@ -210,7 +213,7 @@
               problem: "The website presents information overload, dark patterns and non-intuitive navigation, creating a slow shopping experience with high abandonment probability.",
               objective: "Optimize the shopping experience by improving clarity, trust and facilitating product search and selection.",
               methods: ["Desktop Research","Competitive Benchmarking (SHEIN vs AliExpress vs Temu)","User surveys","Pain points analysis","Information architecture redesign","Figma prototyping"],
-              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html",
+              platform: "Desktop Web", color: "#2D1F3D", emoji: "🛍️", caseUrl: "shein_case.html", mockupImage: "shein_home.png",
             },
           ],
         },
@@ -392,7 +395,7 @@
           {/* ── HERO ── */}
           <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", paddingTop:"64px", paddingLeft:"2rem", paddingRight:"2rem" }}>
             <div className="hero-inner" style={{ maxWidth:"1120px", margin:"0 auto", padding:"4rem 0", width:"100%" }}>
-              <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"1fr 400px", gap:"5rem", alignItems:"center", minHeight:"calc(100vh - 160px)" }}>
+              <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"1fr 300px", gap:"5rem", alignItems:"center", minHeight:"calc(100vh - 160px)" }}>
 
                 {/* Text */}
                 <div className="hero-text-wrap" style={{ maxWidth:"580px" }}>
@@ -423,10 +426,8 @@
                 <div className="hero-photo" style={{ display:"flex", justifyContent:"center" }}>
                   <div style={{ position:"relative", width:"100%" }}>
                     <div style={{ position:"absolute", top:"22px", right:"-14px", bottom:"-14px", left:"14px", border:`2px solid ${C.accent}`, borderRadius:"24px", opacity:0.22, zIndex:0 }} />
-                    <div style={{ position:"relative", zIndex:1, background:"linear-gradient(150deg,#EBE7E1 0%,#D9D2C8 100%)", borderRadius:"20px", overflow:"hidden", aspectRatio:"3/4", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-end", padding:"1.75rem" }}>
-                      <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, display:"flex", alignItems:"center", justifyContent:"center" }}>
-                        <IcoUser />
-                      </div>
+                    <div style={{ position:"relative", zIndex:1, borderRadius:"20px", overflow:"hidden", aspectRatio:"3/4", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-end", padding:"1.75rem" }}>
+                      <img src="florencia.jpg" alt="Florencia Bollini" style={{ position:"absolute", top:0, left:0, right:0, bottom:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", display:"block" }} />
                       <div style={{ position:"relative", zIndex:2, background:"rgba(255,255,255,0.88)", backdropFilter:"blur(10px)", borderRadius:"12px", padding:"0.85rem 1.2rem", width:"100%", border:"1px solid rgba(255,255,255,0.7)" }}>
                         <p style={{ fontWeight:"700", fontSize:"0.88rem" }}>Florencia Bollini</p>
                         <p style={{ color:C.accent, fontSize:"0.74rem", fontWeight:"500", marginTop:"2px" }}>UX/UI Designer · Mar del Plata, AR</p>
@@ -583,6 +584,81 @@
       );
     }
 
+    function PhoneMockup({ image }) {
+      return (
+        <div style={{
+          width:158, height:306,
+          borderRadius:30,
+          background:"rgba(6,6,10,0.88)",
+          border:"1.5px solid rgba(255,255,255,0.22)",
+          boxShadow:"0 24px 64px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1)",
+          position:"relative",
+          overflow:"hidden",
+          flexShrink:0,
+        }}>
+          {/* Dynamic island */}
+          <div style={{ position:"absolute", top:14, left:"50%", transform:"translateX(-50%)", width:52, height:9, borderRadius:7, background:"rgba(0,0,0,0.95)", border:"1px solid rgba(255,255,255,0.07)", zIndex:3 }} />
+          {/* Screen */}
+          <div style={{ position:"absolute", top:5, left:5, right:5, bottom:5, borderRadius:26, overflow:"hidden", background: image ? "transparent" : "rgba(255,255,255,0.03)" }}>
+            {image ? (
+              <img src={image} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" }} />
+            ) : (
+              <div style={{ padding:"32px 10px 10px", display:"flex", flexDirection:"column", gap:6 }}>
+                <div style={{ height:22, borderRadius:7, background:"rgba(255,255,255,0.08)" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.04)", width:"70%" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.04)", width:"50%", marginBottom:8 }} />
+                <div style={{ height:44, borderRadius:8, background:"rgba(255,255,255,0.05)" }} />
+                <div style={{ height:44, borderRadius:8, background:"rgba(255,255,255,0.04)" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.03)", width:"75%", marginTop:4 }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.03)", width:"55%" }} />
+              </div>
+            )}
+          </div>
+          {/* Home indicator */}
+          <div style={{ position:"absolute", bottom:10, left:"50%", transform:"translateX(-50%)", width:38, height:4, borderRadius:3, background:"rgba(255,255,255,0.3)" }} />
+        </div>
+      );
+    }
+
+    function BrowserMockup({ image }) {
+      return (
+        <div style={{
+          width:290, height:196,
+          borderRadius:12,
+          background:"rgba(6,5,14,0.82)",
+          border:"1.5px solid rgba(255,255,255,0.18)",
+          boxShadow:"0 24px 64px rgba(0,0,0,0.7)",
+          overflow:"hidden",
+          flexShrink:0,
+        }}>
+          {/* Chrome */}
+          <div style={{ height:32, background:"rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.08)", display:"flex", alignItems:"center", padding:"0 12px", gap:6 }}>
+            {["rgba(255,95,87,0.85)","rgba(255,189,46,0.85)","rgba(40,201,64,0.85)"].map((c,i) => (
+              <div key={i} style={{ width:9, height:9, borderRadius:"50%", background:c }} />
+            ))}
+            <div style={{ flex:1, marginLeft:10, height:16, borderRadius:5, background:"rgba(255,255,255,0.07)", display:"flex", alignItems:"center", padding:"0 10px" }}>
+              <div style={{ width:65, height:5, borderRadius:2, background:"rgba(255,255,255,0.18)" }} />
+            </div>
+          </div>
+          {/* Screen */}
+          <div style={{ height:"calc(100% - 32px)", overflow:"hidden", background: image ? "transparent" : "rgba(255,255,255,0.02)" }}>
+            {image ? (
+              <img src={image} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" }} />
+            ) : (
+              <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", gap:6 }}>
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.08)", width:"65%" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.05)", width:"45%", marginBottom:6 }} />
+                <div style={{ height:42, borderRadius:6, background:"rgba(255,255,255,0.05)" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.04)", width:"80%", marginTop:4 }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.03)", width:"60%" }} />
+                <div style={{ height:6, borderRadius:3, background:"rgba(255,255,255,0.03)", width:"72%" }} />
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
     function WorkCarousel({ cases, t }) {
       const [active, setActive] = useState(0);
       const scrollRef = useRef(null);
@@ -625,7 +701,8 @@
               scrollSnapType:"x mandatory", scrollbarWidth:"none",
               paddingLeft:"max(2rem, calc((100vw - 1120px) / 2 + 2rem))",
               paddingRight:"max(2rem, calc((100vw - 1120px) / 2 + 2rem))",
-              paddingBottom:"1.5rem",
+              paddingBottom:"2rem",
+              overflowY:"visible",
             }}
           >
             {cases.map((cs, i) => (
@@ -662,9 +739,12 @@
     }
 
     function CarouselCard({ cs, idx, t, total }) {
+      const isMobile = cs.platform === "Android";
+
       return (
         <div
           className="carousel-item"
+          onClick={() => window.location.href = cs.caseUrl}
           style={{
             flexShrink:0,
             width:"clamp(300px, 54vw, 600px)",
@@ -674,6 +754,7 @@
             scrollSnapAlign:"center",
             position:"relative",
             overflow:"hidden",
+            cursor:"pointer",
           }}
         >
           {/* Geometric background rings */}
@@ -686,22 +767,57 @@
             {String(idx + 1).padStart(2, "0")}
           </div>
 
+          {/* Mockup — pegado a la derecha, esquinado, parcialmente cortado */}
+          {isMobile ? (
+            <div style={{ position:"absolute", right:"-28px", bottom:"62px", zIndex:2 }}>
+              <PhoneMockup image={cs.mockupImage} />
+            </div>
+          ) : (
+            <div className="browser-mockup-wrap" style={{ position:"absolute", right:"-28px", bottom:"62px", zIndex:2 }}>
+              <BrowserMockup image={cs.mockupImage} />
+            </div>
+          )}
+
+          {/* Glow behind mockup */}
+          <div style={{
+            position:"absolute",
+            right:"-60px",
+            bottom:"20px",
+            width: isMobile ? "200px" : "280px",
+            height: isMobile ? "300px" : "200px",
+            borderRadius:"50%",
+            background:"rgba(255,255,255,0.07)",
+            filter:"blur(40px)",
+            pointerEvents:"none",
+            zIndex:1,
+          }} />
+
           {/* Top bar */}
-          <div style={{ position:"absolute", top:"2rem", left:"2rem", right:"2rem", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ position:"absolute", top:"2rem", left:"2rem", right:"2rem", display:"flex", justifyContent:"space-between", alignItems:"center", zIndex:3 }}>
             <span style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.68rem", fontWeight:"700", letterSpacing:"0.16em", textTransform:"uppercase" }}>{cs.tag}</span>
             <span style={{ color:"rgba(255,255,255,0.18)", fontSize:"0.7rem", fontWeight:"600", letterSpacing:"0.04em" }}>{String(idx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
           </div>
 
-          {/* Center content */}
-          <div style={{ position:"absolute", left:"2rem", right:"2rem", top:"50%", transform:"translateY(-60%)" }}>
-            <p style={{ color:"rgba(255,255,255,0.3)", fontSize:"0.72rem", letterSpacing:"0.1em", marginBottom:"1.1rem", fontWeight:"500" }}>{cs.ctx}</p>
-            <h3 style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:"800", color:"white", letterSpacing:"-0.03em", lineHeight:1.05, marginBottom:"0.75rem" }}>{cs.title}</h3>
-            <p style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.84rem", lineHeight:"1.72", marginBottom:"1.5rem" }}>{cs.desc}</p>
+          {/* Text content — centrado vertical izquierda */}
+          <div
+            className="card-text-node"
+            style={{
+              position:"absolute",
+              left:"2rem",
+              right: isMobile ? "148px" : "238px",
+              top:"50%",
+              transform:"translateY(-58%)",
+              zIndex:3,
+            }}
+          >
+            <p style={{ color:"rgba(255,255,255,0.3)", fontSize:"0.72rem", letterSpacing:"0.1em", marginBottom:"0.85rem", fontWeight:"500" }}>{cs.ctx}</p>
+            <h3 style={{ fontSize:"clamp(1.6rem,3vw,2.4rem)", fontWeight:"800", color:"white", letterSpacing:"-0.03em", lineHeight:1.06, marginBottom:"0.7rem" }}>{cs.title}</h3>
+            <p style={{ color:"rgba(255,255,255,0.45)", fontSize:"0.8rem", lineHeight:"1.65", marginBottom:"1.25rem" }}>{cs.desc}</p>
             <span style={{ display:"inline-block", background:"rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.45)", fontSize:"0.68rem", fontWeight:"600", padding:"4px 13px", borderRadius:"20px", letterSpacing:"0.07em" }}>{cs.platform}</span>
           </div>
 
           {/* Bottom CTA */}
-          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"1.5rem 2rem", borderTop:"1px solid rgba(255,255,255,0.07)", background:"rgba(0,0,0,0.25)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}>
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"1.5rem 2rem", borderTop:"1px solid rgba(255,255,255,0.07)", background:"rgba(0,0,0,0.25)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", zIndex:4, borderRadius:"0 0 20px 20px" }}>
             <a
               href={cs.caseUrl || "#"}
               className="case-cta-btn"
