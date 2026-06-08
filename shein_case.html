@@ -7,8 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:#F6F5F2;font-family:'Inter',-apple-system,sans-serif;color:#141414;line-height:1.7}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:#F6F5F2;overflow-x:hidden;font-family:'Inter',-apple-system,sans-serif;color:#141414;line-height:1.7}
 ::selection{background:#8B1A1A;color:white}
 
 .cs-nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(246,245,242,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #E8E5E1;height:64px;display:flex;align-items:center;padding:0 2rem}
@@ -188,6 +188,8 @@ p+p{margin-top:1rem}
 .browser-screen-lg img,.browser-screen-sm img{width:100%;display:block;object-fit:cover;object-position:top}
 .screen-caption{margin-top:0.85rem;font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.28);letter-spacing:0.16em;text-transform:uppercase}
 @media(max-width:640px){.ui-gallery-row{grid-template-columns:1fr}.browser-screen-sm{height:260px}}
+.browser-screen-video{overflow:hidden;background:#000;line-height:0}
+.browser-screen-video video{width:100%;display:block;object-fit:cover}
 
 /* TREE TEST */
 .tree-result{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
@@ -845,6 +847,24 @@ p+p{margin-top:1rem}
           </div>
           <p class="screen-caption">03 · Detalle de producto</p>
         </div>
+      </div>
+
+      <!-- Demo video — full width -->
+      <div>
+        <div class="browser-preview">
+          <div class="browser-topbar">
+            <div class="browser-dot" style="background:rgba(255,95,87,0.9)"></div>
+            <div class="browser-dot" style="background:rgba(255,189,46,0.9)"></div>
+            <div class="browser-dot" style="background:rgba(40,201,64,0.9)"></div>
+            <div class="browser-urlbar"><span class="browser-urltext">shein.com — Demo interactivo</span></div>
+          </div>
+          <div class="browser-screen-video">
+            <video autoplay loop muted playsinline>
+              <source src="shein_video.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <p class="screen-caption">04 · Flujo de navegación — Demo</p>
       </div>
 
     </div>
